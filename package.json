@@ -1,0 +1,13 @@
+{
+  "name": "xianbaoku-monitor",
+  "version": "1.0.0",
+  "description": "线报酷监控推送系统",
+  "main": "api/monitor.js",
+  "scripts": {
+    "test": "node api/monitor.js"
+  },
+  "dependencies": {
+    "got": "^11.8.6",
+    "@upstash/redis": "^1.28.0"
+  }
+}
