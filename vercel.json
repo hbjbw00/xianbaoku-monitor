@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/monitor.js": {
+      "maxDuration": 30,
+      "memory": 1024
+    }
+  },
+  "env": {
+    "PUSHME_KEY": "@pushme_key",
+    "UPSTASH_REDIS_REST_URL": "@upstash_redis_rest_url",
+    "UPSTASH_REDIS_REST_TOKEN": "@upstash_redis_rest_token"
+  }
+}
