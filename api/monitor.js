@@ -454,8 +454,7 @@ module.exports = async (req, res) => {
 ---
 
 🌟 来自cron-job.org定时任务 2026.03.24  
-🌟 由Vercel部署 Upstash提供可持续化储存`, item)
-            );
+🌟 由Vercel部署 Upstash提供可持续化储存`, item);
       
       const success = await pushMeNotify(title, content);
       if (success) {
