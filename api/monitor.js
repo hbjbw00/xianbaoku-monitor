@@ -444,12 +444,18 @@ module.exports = async (req, res) => {
 **分类**：{分类名}  
 **发布时间**：{日期} {时间}  
 
-### 📎 原文链接
-[{链接}]({链接})
+### 📎 原文地址
+\`\`\`
+{链接}
+\`\`\`
+
+📍 [点击打开链接]({链接})
 
 ---
 
-🌟 来自 Vercel 线报监控 | 定时执行`, item);
+🌟 来自cron-job.org定时任务 2026.03.24  
+🌟 由Vercel部署 Upstash提供可持续化储存`, item)
+            );
       
       const success = await pushMeNotify(title, content);
       if (success) {
