@@ -7,6 +7,9 @@ const { Redis } = require('@upstash/redis');
 const PUSHME_KEY = process.env.PUSHME_KEY || '';
 const PUSHME_URL = 'https://push.i-i.me';
 
+// 息知配置
+const WX_XIZHI_KEY = process.env.WX_XIZHI_KEY || '';
+
 // 初始化 Redis
 const redis = Redis.fromEnv();
 
@@ -37,7 +40,7 @@ const pingbilouzhuplus = '';
 const pingbitime = "5";
 
 // 只看它关键词
-const zkt_gjc = '查漏补缺|税|王一博|安踏|百雀羚|C咖|得宝|TEMPO|真维斯|YAYA|鸭鸭|法丽兹|EVISU|蕉内|BANANAIN|海伦|LACOSTE|LOEWE|罗意威|JIMMYCHOO|香奈儿|CHANEL|植村秀|纯甄|轻酪乳|勇闯天涯|黑狮|冰红茶|妙可蓝多|林氏|吨吨|台铃|阿道夫|FLYCO|飞科|lifespace|益倍适|漫步者|嘉实多|红牛|SKG|水卫士|盐津铺子|舒莱|杜蕾斯|冈本|避孕套|小雨伞|小玩具|情趣|Whoo|后拱辰|白象|臭宝|李子柒|好欢螺|火鸡面|三养|劲仔|小蓝袋|小米|红米|REDMI|K90|肯德基|KFC|麦当劳|麦当当|塔斯汀|华莱士|蜜雪|林里|LINLEE|窑鸡|瑞幸|茉莉奶白|薪水|平安|好车主|河南|上海|移动|联通|话费|云包场|优酷|火车|12306|高铁|机票|掌上|招行|招.行|招商|工行|工.行|工商|中行|中.行|中国银行|农行|农.行|农业|邮储|邮.储|邮政|建行|建.行|建设|交行|交.行|交通|浦发|浦.发|中信|中.信|还款|云闪付|云闪.付|云少妇|ysf|数币|数字人民币|碰一|立减金|ljj|Q币|QB|小红书|博乐纯|清朗一日|欧舒适|清氧清|欧柯适|牙线|酷玩|Crucial|酷睿|盒马|开通|hfp|年卡|高露洁|法式软面包|馍片|沙琪玛|回力|电影|湿巾|湿厕纸|雪糕|冰淇淋|洗烘|洗衣机|垃圾袋|火腿肠|大米|墨镜|生日';
+const zkt_gjc = '查漏补缺|税|王一博|安踏|百雀羚|C咖|得宝|TEMPO|真维斯|YAYA|鸭鸭|法丽兹|EVISU|蕉内|BANANAIN|海伦|LACOSTE|LOEWE|罗意威|JIMMYCHOO|香奈儿|CHANEL|植村秀|纯甄|轻酪乳|勇闯天涯|黑狮|冰红茶|妙可蓝多|林氏|吨吨|台铃|阿道夫|FLYCO|飞科|lifespace|益倍适|漫步者|嘉实多|红牛|SKG|水卫士|盐津铺子|舒莱|杜蕾斯|冈本|避孕套|小雨伞|小玩具|情趣|Whoo|后拱辰|白象|臭宝|李子柒|好欢螺|火鸡面|三养|劲仔|小蓝袋|小米|红米|REDMI|K90|肯德基|KFC|麦当劳|麦当当|塔斯汀|华莱士|蜜雪|林里|LINLEE|窑鸡|瑞幸|茉莉奶白|一点点|1点点|茶百道|喜茶|霸王茶姬|coco|薪水|平安|好车主|河南|上海|移动|联通|话费|云包场|优酷|火车|12306|高铁|机票|掌上|招行|招.行|招商|工行|工.行|工商|中行|中.行|中国银行|农行|农.行|农业|邮储|邮.储|邮政|建行|建.行|建设|交行|交.行|交通|浦发|浦.发|中信|中.信|还款|云闪付|云闪.付|云少妇|ysf|数币|数字人民币|碰一|立减金|ljj|Q币|QB|bug|必中|小红书|博乐纯|清朗一日|欧舒适|清氧清|欧柯适|牙线|酷玩|Crucial|酷睿|盒马|开通|hfp|年卡|高露洁|法式软面包|馍片|沙琪玛|回力|电影|湿巾|湿厕纸|雪糕|冰淇淋|洗烘|洗衣机|垃圾袋|火腿肠|大米|食用油|生日';
 
 // ============== 工具函数 ==============
 function daysComputed(time) {
@@ -314,8 +317,8 @@ async function pushMeNotify(title, content) {
     const response = await got.post(PUSHME_URL, {
       json: {
         push_key: PUSHME_KEY,
-        title: title.substring(0, 100), // PushMe 标题限制
-        content: content.substring(0, 5000), // 内容限制
+        title: title.substring(0, 100),
+        content: content.substring(0, 5000),
         type: "markdown"
       },
       timeout: 10000
@@ -334,9 +337,46 @@ async function pushMeNotify(title, content) {
   }
 }
 
+// 息知推送函数
+async function wxXiZhiNotify(title, content) {
+  if (!WX_XIZHI_KEY) {
+    console.log('⚠️ 未配置 WX_XIZHI_KEY，跳过息知推送');
+    return false;
+  }
+
+  try {
+    const response = await got.post(WX_XIZHI_KEY, {
+      json: {
+        title: title.substring(0, 200),
+        content: content
+      },
+      timeout: 10000
+    });
+    
+    // 息知返回的是 JSON 字符串
+    let result;
+    try {
+      result = JSON.parse(response.body);
+    } catch (e) {
+      result = response.body;
+    }
+    
+    if (result.code === 200 || result.code === 0) {
+      console.log(`✅ 息知推送成功: ${title.substring(0, 50)}...`);
+      return true;
+    } else {
+      console.log(`❌ 息知推送失败: ${JSON.stringify(result)}`);
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ 息知推送错误:', error.message);
+    return false;
+  }
+}
+
 // ============== Redis 存储函数 ==============
 const REDIS_KEY = 'xianbaoku_sent_ids';
-const REDIS_MAX_SIZE = 2000; // 只保留最近2000条记录
+const REDIS_MAX_SIZE = 2000;
 
 async function isMessageSent(id) {
   try {
@@ -344,14 +384,13 @@ async function isMessageSent(id) {
     return exists === 1;
   } catch (error) {
     console.error('Redis 读取错误:', error.message);
-    return false; // 出错时当作未发送，避免漏掉
+    return false;
   }
 }
 
 async function saveSentId(id) {
   try {
     await redis.sadd(REDIS_KEY, id.toString());
-    // 保持集合大小，删除旧的
     const size = await redis.scard(REDIS_KEY);
     if (size > REDIS_MAX_SIZE) {
       const allIds = await redis.smembers(REDIS_KEY);
@@ -371,17 +410,14 @@ module.exports = async (req, res) => {
   const startTime = Date.now();
   console.log('🚀 开始获取线报酷数据...');
   
-  // 设置 CORS 头
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
   
   try {
-    // 检查配置
     if (!PUSHME_KEY) {
       throw new Error('未配置 PUSHME_KEY，请在 Vercel 环境变量中设置');
     }
     
-    // 1. 获取线报酷数据
     console.log('📡 请求线报酷 API...');
     const response = await got.get(NEW_URL, {
       timeout: 10000,
@@ -391,19 +427,15 @@ module.exports = async (req, res) => {
     const xbkdata = JSON.parse(response.body);
     console.log(`📊 获取到 ${xbkdata.length} 条数据`);
     
-    // 2. 筛选新数据
     let newItems = [];
     let filteredCount = 0;
     
     for (const item of xbkdata) {
-      // 检查是否已推送过
       const alreadySent = await isMessageSent(item.id);
       
       if (!alreadySent) {
-        // 保存 ID 到 Redis（无论是否被屏蔽，都要记录避免重复）
         await saveSentId(item.id);
         
-        // 进行筛选
         if (listfilter(item, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilouzhuplus, pingbibiaoti, zhanxianbiaoti, pingbibiaotiplus, pingbineirong, zhanxianneirong, pingbineirongplus, pingbitime)) {
           newItems.push(item);
         } else {
@@ -414,7 +446,6 @@ module.exports = async (req, res) => {
     
     console.log(`📋 新数据 ${newItems.length} 条，被筛选过滤 ${filteredCount} 条`);
     
-    // 3. 只看它二次筛选
     let finalItems = [];
     newItems.forEach(item => {
       if (listfilter(item, "", "", "", "", "(.*)", zkt_gjc ? zkt_gjc : "(.*)", "", "", "", "", "")) {
@@ -426,9 +457,10 @@ module.exports = async (req, res) => {
     
     console.log(`✨ 最终推送 ${finalItems.length} 条`);
     
-    // 4. 推送每条消息
     let pushSuccess = 0;
     let pushFailed = 0;
+    let xizhiSuccess = 0;
+    let xizhiFailed = 0;
     
     for (const item of finalItems) {
       item.url = DOMIN + item.url;
@@ -456,27 +488,38 @@ module.exports = async (req, res) => {
 🌟 来自cron-job.org定时任务 2026.03.24  
 🌟 由Vercel部署 Upstash提供可持续化储存`, item);
       
-      const success = await pushMeNotify(title, content);
-      if (success) {
+      // PushMe 推送
+      const pushResult = await pushMeNotify(title, content);
+      if (pushResult) {
         pushSuccess++;
       } else {
         pushFailed++;
       }
       
-      // 云包场额外推送
+      // 云包场额外推送到息知
       if (title.includes('云包场') || (item.content && item.content.includes('云包场'))) {
-        await pushMeNotify(`🎬 【云包场】${title}`, content);
-        console.log(`📤 云包场额外推送: ${title}`);
+        const xizhiResult = await wxXiZhiNotify(
+          `【云包场】${title}`,
+          content
+        );
+        if (xizhiResult) {
+          xizhiSuccess++;
+        } else {
+          xizhiFailed++;
+        }
+        console.log(`📤 云包场内容额外推送到息知: ${title.substring(0, 50)}...`);
       }
       
       console.log(`📢 推送: ${item.title.substring(0, 50)}...`);
-      
-      // 避免推送太快，稍微延迟
       await new Promise(r => setTimeout(r, 500));
     }
     
     const duration = Date.now() - startTime;
-    console.log(`✅ 执行完成，耗时 ${duration}ms，成功 ${pushSuccess} 条，失败 ${pushFailed} 条`);
+    console.log(`✅ 执行完成，耗时 ${duration}ms`);
+    console.log(`   PushMe: 成功 ${pushSuccess} 条，失败 ${pushFailed} 条`);
+    if (xizhiSuccess > 0 || xizhiFailed > 0) {
+      console.log(`   息知: 成功 ${xizhiSuccess} 条，失败 ${xizhiFailed} 条`);
+    }
     
     res.status(200).json({
       success: true,
@@ -487,8 +530,10 @@ module.exports = async (req, res) => {
       finalItems: finalItems.length,
       pushSuccess: pushSuccess,
       pushFailed: pushFailed,
+      xizhiSuccess: xizhiSuccess,
+      xizhiFailed: xizhiFailed,
       duration: duration,
-      message: `发现 ${finalItems.length} 条新线报，推送成功 ${pushSuccess} 条`
+      message: `发现 ${finalItems.length} 条新线报，PushMe推送成功 ${pushSuccess} 条，息知推送成功 ${xizhiSuccess} 条`
     });
     
   } catch (error) {
