@@ -14,7 +14,7 @@ const WX_XIZHI_KEY = process.env.WX_XIZHI_KEY || '';
 const redis = Redis.fromEnv();
 
 // 线报酷配置
-const DOMIN = 'http://news.ixbk.net';
+const DOMIN = 'http://new.ixbk.net';
 const NEW_URL = DOMIN + '/plus/json/push.json';
 
 // ============== 筛选配置 ==============
