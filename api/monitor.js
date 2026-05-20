@@ -23,7 +23,7 @@ const NEW_URL = DOMIN + '/plus/json/push.json';
 
 // ============== 筛选配置 ==============
 // 分类屏蔽
-const pingbifenlei = '小嘀咕|母婴儿童|宠物天地|医疗保健|微博超话|狗组|爱猫生活|爱猫澡盆';
+const pingbifenlei = '母婴儿童|宠物天地|医疗保健|微博超话|狗组|爱猫生活|爱猫澡盆';
 
 // 标题屏蔽
 const pingbibiaoti = '';
@@ -31,7 +31,7 @@ const zhanxianbiaoti = '';
 const pingbibiaotiplus = '';
 
 // 内容屏蔽
-const pingbineirong = '肖战|珂拉琪|薇诺娜|榴莲|星鲨|斯维诗|毛戈平|思笔乐|面粉|小麦粉|斐思妮|螺霸王|桂格|颐莲|犬粮|狗粮|猫粮|珂润|滋源|花漾|敷益清|心相印|舒客|佳洁士|云南山泉|GNUV|斐跃|拉面说|优可舒|猫人|拉拜诗|男童|女童|儿童|大童|中童|小童|雪中飞';
+const pingbineirong = '肖战|珂拉琪|薇诺娜|榴莲|星鲨|斯维诗|毛戈平|思笔乐|面粉|小麦粉|斐思妮|螺霸王|桂格|颐莲|犬粮|狗粮|猫粮|珂润|滋源|花漾|敷益清|心相印|每日鲜语|舒客|佳洁士|云南山泉|GNUV|斐跃|拉面说|优可舒|猫人|拉拜诗|男童|女童|儿童|大童|中童|小童|雪中飞';
 const zhanxianneirong = '';
 const pingbineirongplus = '';
 
