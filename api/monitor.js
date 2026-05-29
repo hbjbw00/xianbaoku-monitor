@@ -46,133 +46,167 @@ const pingbitime = "5";
 // 只看它关键词
 const zkt_gjc = '查漏补缺|税|王一博|安踏|百雀羚|C咖|得宝|TEMPO|YAYA|鸭鸭|法丽兹|EVISU|蕉内|BANANAIN|海伦|LACOSTE|LOEWE|罗意威|JIMMYCHOO|香奈儿|CHANEL|植村秀|纯甄|轻酪乳|勇闯天涯|黑狮|冰红茶|妙可蓝多|林氏|吨吨|台铃|阿道夫|FLYCO|飞科|lifespace|益倍适|漫步者|嘉实多|红牛|SKG|水卫士|乐淇|盐津铺子|舒莱|杜蕾斯|冈本|避孕套|小雨伞|小玩具|情趣|Whoo|后拱辰|优时颜|白象|臭宝|李子柒|好欢螺|火鸡面|三养|劲仔|脱骨侠|小蓝袋|小米|红米|REDMI|K90|肯德基|KFC|麦当劳|麦当当|塔斯汀|华莱士|蜜雪|林里|LINLEE|窑鸡|瑞幸|星巴克|茉莉奶白|一点点|1点点|茶百道|喜茶|霸王茶姬|coco|薪水|平安|好车主|河南|上海|移动|联通|话费|云包场|优酷|火车|12306|高铁|机票|掌上|招行|招.行|招商|工行|工.行|工商|中行|中.行|中国银行|农行|农.行|农业|邮储|邮.储|邮政|建行|建.行|建设|交行|交.行|交通|浦发|浦.发|中信|中.信|还款|云闪付|云闪.付|云少妇|ysf|数币|数字人民币|碰一|立减金|ljj|Q币|QB|bug|必中|小红书|博乐纯|清朗一日|欧舒适|清氧清|欧柯适|牙线|酷玩|Crucial|希捷|铠侠|酷睿|盒马|好想来|开通|hfp|年卡|高露洁|面包|肉松小贝|馍片|沙琪玛|趣多多|回力|电影|湿巾|擦镜|镜片清洁|镜头清洁|蔡司|湿厕纸|雪糕|冰淇淋|洗烘|洗衣机|火腿肠|王中王|五常|食用油|大豆油|花生油|胚芽油|生抽|鸡蛋|微波炉|短袖|T恤|海飞丝|高钙低脂|低脂高钙|抱枕|手抓饼|鸡蛋灌饼|番茄酱|番茄沙司|有棵树';
 
-// ============== 辅助函数：根据分类名获取头像字符 ==============
-function getAvatarFromCategory(categoryName) {
-    if (!categoryName) return '📢';
+// ============== 分类解析函数 ==============
+// 解析分类字符串，返回 {mainCategory, subCategory, leafCategory}
+function parseCategory(categoryName) {
+    if (!categoryName) return { mainCategory: '', subCategory: '', leafCategory: '' };
     
-    // 1. 精准匹配分类（优先级最高）- 确保完全相等才匹配
-    const exactMatchMap = {
-        '赚客吧': '赚',
-        '新赚吧': '新',
-        '微博线报': '微',
-        '微博超话': '超',
-        '好单线报': '好',
-        '豆瓣线报': '豆',
-        '豆瓣线报-拼组': '拼',
-        '豆瓣线报-买组': '买',
-        '豆瓣线报-发组': '发',
-        '豆瓣线报-狗组': '狗',
-        '豆瓣线报-爱猫生活': '猫',
-        '豆瓣线报-爱猫澡盆': '澡',
-        '小嘀咕': '嘀',
-        '葫芦侠三楼': '葫',
-        '小刀娱乐网': '刀',
-        '3K8资讯网': '3',
-        'YYOK大全': 'Y',
-        '活动资讯网': '讯',
-        '免费赚钱中心': '赚'
+    // 按 '-' 或 '－' 或 ' ' 分割分类
+    const parts = categoryName.split(/[-－\s]+/);
+    
+    if (parts.length === 1) {
+        // 只有一级分类，如「赚客吧」
+        return {
+            mainCategory: parts[0],
+            subCategory: '',
+            leafCategory: parts[0]
+        };
+    } else if (parts.length === 2) {
+        // 有两级分类，如「微博线报-线报活动」
+        return {
+            mainCategory: parts[0],
+            subCategory: parts[1],
+            leafCategory: parts[1]
+        };
+    } else {
+        // 有三级或以上分类，如「好单线报-母婴-京东」
+        return {
+            mainCategory: parts[0],
+            subCategory: parts[1],
+            leafCategory: parts[parts.length - 1]  // 取最后一级
+        };
+    }
+}
+
+// 根据细粒度分类获取头像和分组名
+function getPushMeConfig(leafCategory, mainCategory, subCategory) {
+    if (!leafCategory) return { avatar: '📢', groupName: '线报' };
+    
+    // ========== 第一优先级：平台/商城类 ==========
+    const platformMap = {
+        '京东': { avatar: '京', groupName: '京东' },
+        '淘宝': { avatar: '淘', groupName: '淘宝' },
+        '天猫': { avatar: '天', groupName: '天猫' },
+        '拼多多': { avatar: '拼', groupName: '拼多多' },
+        '猫超': { avatar: '猫', groupName: '猫超' },
+        '美团': { avatar: '美', groupName: '美团' },
+        '饿了么': { avatar: '饿', groupName: '饿了么' },
+        '抖音': { avatar: '抖', groupName: '抖音' },
+        '快手': { avatar: '快', groupName: '快手' },
+        '唯品会': { avatar: '唯', groupName: '唯品会' },
+        '苏宁': { avatar: '苏', groupName: '苏宁' }
     };
     
-    if (exactMatchMap[categoryName]) {
-        return exactMatchMap[categoryName];
-    }
-    
-    // 2. 处理微博/好单线报的子分类
-    // 注意：只有当分类名以特定前缀开头时才匹配子分类
-    const isWeiboOrHaodan = categoryName.includes('微博线报') || categoryName.includes('好单线报');
-    const isDouban = categoryName.includes('豆瓣线报');
-    
-    if (isWeiboOrHaodan) {
-        const subCategoryMap = {
-            '线报活动': '活',
-            '食品': '食',
-            '饮料': '饮',
-            '蛋肉': '肉',
-            '粮油': '粮',
-            '果蔬': '果',
-            '日用': '日',
-            '服饰': '服',
-            '美妆': '妆',
-            '母婴': '母',
-            '健康': '健',
-            '数码': '数',
-            '家用': '家',
-            '娱乐': '娱',
-            '运动': '运',
-            '宠物': '宠',
-            '更多': '更',
-            '淘宝': '淘',
-            '京东': '京',
-            '拼多多': '拼',
-            '外卖团购': '外',
-            '其他活动': '其',
-            '整点': '整',
-            '猫超': '猫'
-        };
-        
-        for (const [key, value] of Object.entries(subCategoryMap)) {
-            if (categoryName.includes(key)) {
-                return value;
-            }
+    for (const [key, value] of Object.entries(platformMap)) {
+        if (leafCategory.includes(key)) {
+            return value;
         }
     }
     
-    if (isDouban) {
-        const doubanSubMap = {
-            '拼组': '拼',
-            '买组': '买',
-            '发组': '发',
-            '狗组': '狗',
-            '爱猫生活': '猫',
-            '爱猫澡盆': '澡'
-        };
-        
-        for (const [key, value] of Object.entries(doubanSubMap)) {
-            if (categoryName.includes(key)) {
-                return value;
-            }
-        }
-        return '豆';
-    }
+    // ========== 第二优先级：活动类型类 ==========
+    const activityMap = {
+        '线报活动': { avatar: '活', groupName: '线报活动' },
+        '其他活动': { avatar: '其', groupName: '其他活动' },
+        '整点': { avatar: '整', groupName: '整点抢购' },
+        '外卖团购': { avatar: '外', groupName: '外卖团购' }
+    };
     
-    // 3. 其他包含匹配（去掉好单线报，避免误匹配）
-    const otherMatchMap = [
-        { keywords: ['赚客吧'], avatar: '赚' },
-        { keywords: ['新赚吧'], avatar: '新' },
-        { keywords: ['微博线报'], avatar: '微' },
-        { keywords: ['微博超话'], avatar: '超' },
-        { keywords: ['豆瓣线报'], avatar: '豆' },
-        { keywords: ['小嘀咕'], avatar: '嘀' },
-        { keywords: ['葫芦侠三楼'], avatar: '葫' },
-        { keywords: ['小刀娱乐网'], avatar: '刀' },
-        { keywords: ['3K8资讯网'], avatar: '3' },
-        { keywords: ['YYOK大全'], avatar: 'Y' },
-        { keywords: ['活动资讯网'], avatar: '活' },
-        { keywords: ['免费赚钱中心'], avatar: '赚' }
-    ];
-    
-    for (const rule of otherMatchMap) {
-        for (const keyword of rule.keywords) {
-            if (categoryName.includes(keyword)) {
-                return rule.avatar;
-            }
+    for (const [key, value] of Object.entries(activityMap)) {
+        if (leafCategory.includes(key)) {
+            return value;
         }
     }
     
-    // 4. 取第一个中文字符
-    const chineseMatch = categoryName.match(/[\u4e00-\u9fa5]/);
+    // ========== 第三优先级：商品品类类 ==========
+    const categoryMap = {
+        '食品': { avatar: '食', groupName: '食品' },
+        '饮料': { avatar: '饮', groupName: '饮料' },
+        '蛋肉': { avatar: '肉', groupName: '蛋肉' },
+        '粮油': { avatar: '粮', groupName: '粮油' },
+        '果蔬': { avatar: '果', groupName: '果蔬' },
+        '日用': { avatar: '日', groupName: '日用' },
+        '服饰': { avatar: '服', groupName: '服饰' },
+        '美妆': { avatar: '妆', groupName: '美妆' },
+        '母婴': { avatar: '母', groupName: '母婴' },
+        '健康': { avatar: '健', groupName: '健康' },
+        '数码': { avatar: '数', groupName: '数码' },
+        '家用': { avatar: '家', groupName: '家用' },
+        '娱乐': { avatar: '娱', groupName: '娱乐' },
+        '运动': { avatar: '运', groupName: '运动' },
+        '宠物': { avatar: '宠', groupName: '宠物' },
+        '更多': { avatar: '更', groupName: '更多' }
+    };
+    
+    for (const [key, value] of Object.entries(categoryMap)) {
+        if (leafCategory.includes(key)) {
+            return value;
+        }
+    }
+    
+    // ========== 第四优先级：豆瓣子分类 ==========
+    const doubanMap = {
+        '买组': { avatar: '买', groupName: '买组' },
+        '拼组': { avatar: '拼', groupName: '拼组' },
+        '发组': { avatar: '发', groupName: '发组' },
+        '狗组': { avatar: '狗', groupName: '狗组' },
+        '爱猫生活': { avatar: '猫', groupName: '爱猫生活' },
+        '爱猫澡盆': { avatar: '澡', groupName: '爱猫澡盆' }
+    };
+    
+    for (const [key, value] of Object.entries(doubanMap)) {
+        if (leafCategory.includes(key)) {
+            return value;
+        }
+    }
+    
+    // ========== 第五优先级：主分类 ==========
+    const mainMap = {
+        '赚客吧': { avatar: '赚', groupName: '赚客吧' },
+        '新赚吧': { avatar: '新', groupName: '新赚吧' },
+        '微博线报': { avatar: '微', groupName: '微博线报' },
+        '微博超话': { avatar: '超', groupName: '微博超话' },
+        '好单线报': { avatar: '好', groupName: '好单线报' },
+        '豆瓣线报': { avatar: '豆', groupName: '豆瓣线报' },
+        '小嘀咕': { avatar: '嘀', groupName: '小嘀咕' },
+        '葫芦侠三楼': { avatar: '葫', groupName: '葫芦侠三楼' },
+        '小刀娱乐网': { avatar: '刀', groupName: '小刀娱乐网' },
+        '3K8资讯网': { avatar: '3', groupName: '3K8资讯网' },
+        'YYOK大全': { avatar: 'Y', groupName: 'YYOK大全' },
+        '活动资讯网': { avatar: '讯', groupName: '活动资讯网' },
+        '免费赚钱中心': { avatar: '免', groupName: '免费赚钱中心' }
+    };
+    
+    for (const [key, value] of Object.entries(mainMap)) {
+        if (leafCategory.includes(key)) {
+            return value;
+        }
+    }
+    
+    // ========== 第六优先级：从细粒度分类中取第一个中文字符 ==========
+    const chineseMatch = leafCategory.match(/[\u4e00-\u9fa5]/);
     if (chineseMatch) {
-        return chineseMatch[0];
+        const avatar = chineseMatch[0];
+        // 分组名取细粒度分类本身，限制长度
+        let groupName = leafCategory;
+        if (groupName.length > 10) {
+            groupName = groupName.substring(0, 10);
+        }
+        return { avatar, groupName };
     }
     
-    // 5. 取第一个字母（大写）
-    const letterMatch = categoryName.match(/[A-Za-z]/);
+    // ========== 第七优先级：取第一个字母 ==========
+    const letterMatch = leafCategory.match(/[A-Za-z]/);
     if (letterMatch) {
-        return letterMatch[0].toUpperCase();
+        const avatar = letterMatch[0].toUpperCase();
+        let groupName = leafCategory;
+        if (groupName.length > 10) {
+            groupName = groupName.substring(0, 10);
+        }
+        return { avatar, groupName };
     }
     
-    // 6. 默认头像
-    return '📢';
+    // ========== 默认 ==========
+    return { avatar: '📢', groupName: '线报' };
 }
 
 // ============== 工具函数 ==============
@@ -247,7 +281,6 @@ function tuisong_replace(text, shuju) {
 function listfilter(group, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilouzhuplus, pingbibiaoti, zhanxianbiaoti, pingbibiaotiplus, pingbineirong, zhanxianneirong, pingbineirongplus, pingbitime) {
   var louzhubaoliu, biaotibaoliu, neirongbaoliu, louzhupingbi, louzhupingbiplus, biaotipingbi, biaotipingbiplus, neirongpingbi, neirongpingbiplus;
   
-  // 注册时间筛选
   if (pingbitime && group.louzhuregtime) {
     if (pingbitime.match(new RegExp(/###/), "g")) {
       let pingbitimearr = pingbitime.split(/<br>|\n\n|\r\n/);
@@ -264,14 +297,12 @@ function listfilter(group, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilou
     }
   }
   
-  // 分类屏蔽
   if (pingbifenlei && group.catename) {
     if (group.catename.match(new RegExp(pingbifenlei, "i"))) {
       return false;
     }
   }
   
-  // 楼主筛选
   if (zhanxianlouzhu && group.louzhu) {
     if (zhanxianlouzhu.match(new RegExp(/###/), "g")) {
       let zhanxianlouzhuarr = zhanxianlouzhu.split(/<br>|\n\n|\r\n/);
@@ -326,7 +357,6 @@ function listfilter(group, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilou
     return false;
   }
   
-  // 标题筛选
   if (zhanxianbiaoti && group.title) {
     if (zhanxianbiaoti.match(new RegExp(/###/), "g")) {
       let zhanxianbiaotiarr = zhanxianbiaoti.split(/<br>|\n\n|\r\n/);
@@ -381,7 +411,6 @@ function listfilter(group, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilou
     return false;
   }
   
-  // 内容筛选
   if (zhanxianneirong && group.content) {
     if (zhanxianneirong.match(new RegExp(/###/), "g")) {
       let zhanxianneirongarr = zhanxianneirong.split(/<br>|\n\n|\r\n/);
@@ -446,14 +475,15 @@ async function pushMeNotify(title, content, categoryName = '') {
     return false;
   }
 
-  // 根据分类名获取头像字符
-  let avatar = getAvatarFromCategory(categoryName);
+  // 解析分类
+  const { mainCategory, subCategory, leafCategory } = parseCategory(categoryName);
   
-  // 构建带分组的标题：格式为 [#分组!头像]标题
-  // 分组统一使用 "线报"，这样所有消息在同一个分组下，但头像不同
-  let finalTitle = `[#线报!${avatar}]${title}`;
+  // 根据细粒度分类获取头像和分组名
+  const { avatar, groupName: configGroupName } = getPushMeConfig(leafCategory, mainCategory, subCategory);
   
-  // 标题长度限制
+  // 构建标题
+  let finalTitle = `[#${configGroupName}!${avatar}]${title}`;
+  
   if (finalTitle.length > 100) {
     finalTitle = finalTitle.substring(0, 100);
   }
@@ -470,7 +500,7 @@ async function pushMeNotify(title, content, categoryName = '') {
     });
     
     if (response.body === 'success') {
-      console.log(`✅ PushMe 推送成功 [头像:${avatar}]: ${title.substring(0, 50)}...`);
+      console.log(`✅ PushMe 推送成功 [分类:${categoryName}] [分组:${configGroupName}, 头像:${avatar}]: ${title.substring(0, 50)}...`);
       return true;
     } else {
       console.log(`❌ PushMe 推送失败: ${response.body}`);
@@ -498,7 +528,6 @@ async function wxXiZhiNotify(title, content) {
       timeout: 10000
     });
     
-    // 息知返回的是 JSON 字符串
     let result;
     try {
       result = JSON.parse(response.body);
@@ -636,7 +665,9 @@ module.exports = async (req, res) => {
       // 获取分类名（优先使用 catename，然后 category_name）
       const categoryName = item.catename || item.category_name || '';
       
-      // PushMe 推送（传入分类名用于设置头像）
+      console.log(`📂 原始分类: ${categoryName}`);
+      
+      // PushMe 推送（传入分类名用于设置头像和分组）
       const pushResult = await pushMeNotify(title, content, categoryName);
       if (pushResult) {
         pushSuccess++;
