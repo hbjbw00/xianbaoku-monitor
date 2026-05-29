@@ -22,6 +22,15 @@ const redis = Redis.fromEnv();
 const DOMIN = 'http://news.xianbao.fun';
 const NEW_URL = DOMIN + '/plus/json/push.json';
 
+// ============== Redis 配置（优化版）==============
+// 使用独立的 Key 存储每个 ID，设置 7 天过期
+// 格式：xianbaoku_sent_{id} -> 存储时间戳
+const REDIS_KEY_PREFIX = 'xianbaoku_sent_';
+const EXPIRE_SECONDS = 7 * 24 * 60 * 60; // 7 天过期
+
+// 内存缓存：本次执行中已处理的 ID（避免重复检查 Redis）
+const sentIdsCache = new Set();
+
 // ============== 筛选配置 ==============
 // 分类屏蔽
 const pingbifenlei = '母婴儿童|宠物天地|医疗保健|微博超话|狗组|爱猫生活|爱猫澡盆';
@@ -306,6 +315,56 @@ function listfilter(group, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilou
   return true;
 }
 
+// ============== 优化版 Redis 存储函数 ==============
+/**
+ * 检查消息是否已发送（使用内存缓存 + Redis）
+ * 每条消息只会在第一次检查时访问 Redis，后续都命中内存缓存
+ */
+async function isNewMessage(id) {
+    // 1. 先检查内存缓存
+    if (sentIdsCache.has(id)) {
+        return false; // 本次执行中已经处理过
+    }
+    
+    try {
+        // 2. 检查 Redis（使用独立的 Key）
+        const key = `${REDIS_KEY_PREFIX}${id}`;
+        const exists = await redis.exists(key);
+        
+        if (exists === 1) {
+            // Redis 中存在，加入内存缓存，避免重复检查
+            sentIdsCache.add(id);
+            return false;
+        }
+        
+        // 3. 不存在，是新消息
+        return true;
+    } catch (error) {
+        console.error(`Redis 检查错误 (ID: ${id}):`, error.message);
+        // 出错时视为新消息，避免漏掉（可能会重复，但不会漏）
+        return true;
+    }
+}
+
+/**
+ * 保存已发送的消息 ID
+ */
+async function markMessageSent(id) {
+    try {
+        const key = `${REDIS_KEY_PREFIX}${id}`;
+        // 使用 SETNX + EXPIRE 一次性完成
+        const added = await redis.setnx(key, Date.now());
+        if (added === 1) {
+            await redis.expire(key, EXPIRE_SECONDS);
+        }
+        // 加入内存缓存
+        sentIdsCache.add(id);
+        console.log(`💾 已记录 ID: ${id}`);
+    } catch (error) {
+        console.error(`Redis 保存错误 (ID: ${id}):`, error.message);
+    }
+}
+
 // ============== 推送函数 ==============
 async function pushMeNotify(title, content, groupName) {
   if (!PUSHME_KEY) {
@@ -313,14 +372,11 @@ async function pushMeNotify(title, content, groupName) {
     return false;
   }
 
-  // 确保分组名最多9个字符（PushMe 头像限制）
   let finalGroupName = groupName;
   if (finalGroupName.length > 9) {
     finalGroupName = finalGroupName.substring(0, 9);
   }
   
-  // 构建标题：[#分组名!分组名]标题（头像和分组名相同）
-  // 格式说明：分组名作为分组标识，同时作为头像文字
   let finalTitle = `[#${finalGroupName}!${finalGroupName}]${title}`;
   
   if (finalTitle.length > 100) {
@@ -351,7 +407,6 @@ async function pushMeNotify(title, content, groupName) {
   }
 }
 
-// 息知推送函数
 async function wxXiZhiNotify(title, content) {
   if (!WX_XIZHI_KEY) {
     console.log('⚠️ 未配置 WX_XIZHI_KEY，跳过息知推送');
@@ -387,41 +442,13 @@ async function wxXiZhiNotify(title, content) {
   }
 }
 
-// ============== Redis 存储函数 ==============
-const REDIS_KEY = 'xianbaoku_sent_ids';
-const REDIS_MAX_SIZE = 2000;
-
-async function isMessageSent(id) {
-  try {
-    const exists = await redis.sismember(REDIS_KEY, id.toString());
-    return exists === 1;
-  } catch (error) {
-    console.error('Redis 读取错误:', error.message);
-    return false;
-  }
-}
-
-async function saveSentId(id) {
-  try {
-    await redis.sadd(REDIS_KEY, id.toString());
-    const size = await redis.scard(REDIS_KEY);
-    if (size > REDIS_MAX_SIZE) {
-      const allIds = await redis.smembers(REDIS_KEY);
-      const toRemove = allIds.slice(0, size - REDIS_MAX_SIZE);
-      if (toRemove.length > 0) {
-        await redis.srem(REDIS_KEY, ...toRemove);
-      }
-    }
-    console.log(`💾 已记录 ID: ${id}`);
-  } catch (error) {
-    console.error('Redis 保存错误:', error.message);
-  }
-}
-
 // ============== 主函数 ==============
 module.exports = async (req, res) => {
   const startTime = Date.now();
   console.log('🚀 开始获取线报酷数据...');
+  
+  // 清空本次执行的内存缓存（每次执行都是新的空 Set）
+  sentIdsCache.clear();
   
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'application/json');
@@ -442,22 +469,26 @@ module.exports = async (req, res) => {
     
     let newItems = [];
     let filteredCount = 0;
+    let alreadySentCount = 0;
     
     for (const item of xbkdata) {
-      const alreadySent = await isMessageSent(item.id);
+      const isNew = await isNewMessage(item.id);
       
-      if (!alreadySent) {
-        await saveSentId(item.id);
+      if (isNew) {
+        // 新消息，先标记为已发送（避免后续重复）
+        await markMessageSent(item.id);
         
         if (listfilter(item, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilouzhuplus, pingbibiaoti, zhanxianbiaoti, pingbibiaotiplus, pingbineirong, zhanxianneirong, pingbineirongplus, pingbitime)) {
           newItems.push(item);
         } else {
           filteredCount++;
         }
+      } else {
+        alreadySentCount++;
       }
     }
     
-    console.log(`📋 新数据 ${newItems.length} 条，被筛选过滤 ${filteredCount} 条`);
+    console.log(`📋 新消息 ${newItems.length} 条，已发送 ${alreadySentCount} 条，被筛选过滤 ${filteredCount} 条`);
     
     let finalItems = [];
     newItems.forEach(item => {
@@ -501,17 +532,14 @@ module.exports = async (req, res) => {
 🌟 来自cron-job.org定时任务  
 🌟 由Vercel部署 Upstash提供可持续化储存`, item);
       
-      // 根据标题匹配分组名
       let groupName = getGroupFromTitle(title, zkt_gjc);
       
-      // 未匹配到任何关键词，放入「其他线报」分组
       if (!groupName) {
         groupName = '其他线报';
       }
       
       console.log(`📂 匹配分组: ${groupName} | 标题: ${title.substring(0, 60)}...`);
       
-      // PushMe 推送
       const pushResult = await pushMeNotify(title, content, groupName);
       if (pushResult) {
         pushSuccess++;
@@ -519,7 +547,6 @@ module.exports = async (req, res) => {
         pushFailed++;
       }
       
-      // 云包场额外推送到息知
       if (title.includes('云包场') || (item.content && item.content.includes('云包场'))) {
         const xizhiResult = await wxXiZhiNotify(
           `【云包场】${title}`,
@@ -549,6 +576,7 @@ module.exports = async (req, res) => {
       timestamp: new Date().toISOString(),
       total: xbkdata.length,
       newItems: newItems.length,
+      alreadySentCount: alreadySentCount,
       filteredCount: filteredCount,
       finalItems: finalItems.length,
       pushSuccess: pushSuccess,
@@ -556,7 +584,7 @@ module.exports = async (req, res) => {
       xizhiSuccess: xizhiSuccess,
       xizhiFailed: xizhiFailed,
       duration: duration,
-      message: `发现 ${finalItems.length} 条新线报，PushMe推送成功 ${pushSuccess} 条，息知推送成功 ${xizhiSuccess} 条`
+      message: `发现 ${finalItems.length} 条新线报，PushMe推送成功 ${pushSuccess} 条`
     });
     
   } catch (error) {
