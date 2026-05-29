@@ -50,10 +50,10 @@ const zkt_gjc = '查漏补缺|税|王一博|安踏|百雀羚|C咖|得宝|TEMPO|Y
 function getAvatarFromCategory(categoryName) {
     if (!categoryName) return '📢';
     
-    // 1. 精准匹配分类（优先级最高）
+    // 1. 精准匹配分类（优先级最高）- 确保完全相等才匹配
     const exactMatchMap = {
         '赚客吧': '赚',
-        '新赚客吧': '新',
+        '新赚吧': '新',
         '微博线报': '微',
         '微博超话': '超',
         '好单线报': '好',
@@ -69,38 +69,89 @@ function getAvatarFromCategory(categoryName) {
         '小刀娱乐网': '刀',
         '3K8资讯网': '3',
         'YYOK大全': 'Y',
-        '活动资讯网': '活',
-        '免费赚钱中心': '免'
+        '活动资讯网': '讯',
+        '免费赚钱中心': '赚'
     };
     
     if (exactMatchMap[categoryName]) {
         return exactMatchMap[categoryName];
     }
     
-    // 2. 包含匹配（处理可能带子分类的情况）
-    const containsMatchMap = [
+    // 2. 处理微博/好单线报的子分类
+    // 注意：只有当分类名以特定前缀开头时才匹配子分类
+    const isWeiboOrHaodan = categoryName.includes('微博线报') || categoryName.includes('好单线报');
+    const isDouban = categoryName.includes('豆瓣线报');
+    
+    if (isWeiboOrHaodan) {
+        const subCategoryMap = {
+            '线报活动': '活',
+            '食品': '食',
+            '饮料': '饮',
+            '蛋肉': '肉',
+            '粮油': '粮',
+            '果蔬': '果',
+            '日用': '日',
+            '服饰': '服',
+            '美妆': '妆',
+            '母婴': '母',
+            '健康': '健',
+            '数码': '数',
+            '家用': '家',
+            '娱乐': '娱',
+            '运动': '运',
+            '宠物': '宠',
+            '更多': '更',
+            '淘宝': '淘',
+            '京东': '京',
+            '拼多多': '拼',
+            '外卖团购': '外',
+            '其他活动': '其',
+            '整点': '整',
+            '猫超': '猫'
+        };
+        
+        for (const [key, value] of Object.entries(subCategoryMap)) {
+            if (categoryName.includes(key)) {
+                return value;
+            }
+        }
+    }
+    
+    if (isDouban) {
+        const doubanSubMap = {
+            '拼组': '拼',
+            '买组': '买',
+            '发组': '发',
+            '狗组': '狗',
+            '爱猫生活': '猫',
+            '爱猫澡盆': '澡'
+        };
+        
+        for (const [key, value] of Object.entries(doubanSubMap)) {
+            if (categoryName.includes(key)) {
+                return value;
+            }
+        }
+        return '豆';
+    }
+    
+    // 3. 其他包含匹配（去掉好单线报，避免误匹配）
+    const otherMatchMap = [
         { keywords: ['赚客吧'], avatar: '赚' },
         { keywords: ['新赚吧'], avatar: '新' },
         { keywords: ['微博线报'], avatar: '微' },
         { keywords: ['微博超话'], avatar: '超' },
-        { keywords: ['好单线报'], avatar: '好' },
         { keywords: ['豆瓣线报'], avatar: '豆' },
-        { keywords: ['拼组'], avatar: '拼' },
-        { keywords: ['买组'], avatar: '买' },
-        { keywords: ['发组'], avatar: '发' },
-        { keywords: ['狗组'], avatar: '狗' },
-        { keywords: ['爱猫生活'], avatar: '猫' },
-        { keywords: ['爱猫澡盆'], avatar: '澡' },
         { keywords: ['小嘀咕'], avatar: '嘀' },
         { keywords: ['葫芦侠三楼'], avatar: '葫' },
         { keywords: ['小刀娱乐网'], avatar: '刀' },
         { keywords: ['3K8资讯网'], avatar: '3' },
         { keywords: ['YYOK大全'], avatar: 'Y' },
         { keywords: ['活动资讯网'], avatar: '活' },
-        { keywords: ['免费赚钱中心'], avatar: '免' }
+        { keywords: ['免费赚钱中心'], avatar: '赚' }
     ];
     
-    for (const rule of containsMatchMap) {
+    for (const rule of otherMatchMap) {
         for (const keyword of rule.keywords) {
             if (categoryName.includes(keyword)) {
                 return rule.avatar;
@@ -108,41 +159,7 @@ function getAvatarFromCategory(categoryName) {
         }
     }
     
-    // 3. 处理微博/好单线报的子分类（线报活动、食品、饮料等）
-    const subCategoryMap = {
-        '线报活动': '活',
-        '食品': '食',
-        '饮料': '饮',
-        '蛋肉': '肉',
-        '粮油': '粮',
-        '果蔬': '果',
-        '日用': '日',
-        '服饰': '服',
-        '美妆': '妆',
-        '母婴': '婴',
-        '健康': '健',
-        '数码': '数',
-        '家用': '家',
-        '娱乐': '娱',
-        '运动': '运',
-        '宠物': '宠',
-        '更多': '更',
-        '淘宝': '淘',
-        '京东': '京',
-        '拼多多': '拼',
-        '外卖团购': '外',
-        '其他活动': '其',
-        '整点': '整',
-        '猫超': '猫'
-    };
-    
-    for (const [key, value] of Object.entries(subCategoryMap)) {
-        if (categoryName.includes(key)) {
-            return value;
-        }
-    }
-    
-    // 4. 如果分类名包含特殊标识但无法识别，取第一个中文字符
+    // 4. 取第一个中文字符
     const chineseMatch = categoryName.match(/[\u4e00-\u9fa5]/);
     if (chineseMatch) {
         return chineseMatch[0];
@@ -155,7 +172,7 @@ function getAvatarFromCategory(categoryName) {
     }
     
     // 6. 默认头像
-    return '🍀';
+    return '📢';
 }
 
 // ============== 工具函数 ==============
