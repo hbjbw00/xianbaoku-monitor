@@ -46,6 +46,118 @@ const pingbitime = "5";
 // 只看它关键词
 const zkt_gjc = '查漏补缺|税|王一博|安踏|百雀羚|C咖|得宝|TEMPO|YAYA|鸭鸭|法丽兹|EVISU|蕉内|BANANAIN|海伦|LACOSTE|LOEWE|罗意威|JIMMYCHOO|香奈儿|CHANEL|植村秀|纯甄|轻酪乳|勇闯天涯|黑狮|冰红茶|妙可蓝多|林氏|吨吨|台铃|阿道夫|FLYCO|飞科|lifespace|益倍适|漫步者|嘉实多|红牛|SKG|水卫士|乐淇|盐津铺子|舒莱|杜蕾斯|冈本|避孕套|小雨伞|小玩具|情趣|Whoo|后拱辰|优时颜|白象|臭宝|李子柒|好欢螺|火鸡面|三养|劲仔|脱骨侠|小蓝袋|小米|红米|REDMI|K90|肯德基|KFC|麦当劳|麦当当|塔斯汀|华莱士|蜜雪|林里|LINLEE|窑鸡|瑞幸|星巴克|茉莉奶白|一点点|1点点|茶百道|喜茶|霸王茶姬|coco|薪水|平安|好车主|河南|上海|移动|联通|话费|云包场|优酷|火车|12306|高铁|机票|掌上|招行|招.行|招商|工行|工.行|工商|中行|中.行|中国银行|农行|农.行|农业|邮储|邮.储|邮政|建行|建.行|建设|交行|交.行|交通|浦发|浦.发|中信|中.信|还款|云闪付|云闪.付|云少妇|ysf|数币|数字人民币|碰一|立减金|ljj|Q币|QB|bug|必中|小红书|博乐纯|清朗一日|欧舒适|清氧清|欧柯适|牙线|酷玩|Crucial|希捷|铠侠|酷睿|盒马|好想来|开通|hfp|年卡|高露洁|面包|肉松小贝|馍片|沙琪玛|趣多多|回力|电影|湿巾|擦镜|镜片清洁|镜头清洁|蔡司|湿厕纸|雪糕|冰淇淋|洗烘|洗衣机|火腿肠|王中王|五常|食用油|大豆油|花生油|胚芽油|生抽|鸡蛋|微波炉|短袖|T恤|海飞丝|高钙低脂|低脂高钙|抱枕|手抓饼|鸡蛋灌饼|番茄酱|番茄沙司|有棵树';
 
+// ============== 辅助函数：根据分类名获取头像字符 ==============
+function getAvatarFromCategory(categoryName) {
+    if (!categoryName) return '📢';
+    
+    // 1. 精准匹配分类（优先级最高）
+    const exactMatchMap = {
+        '赚客吧': '赚',
+        '新赚客吧': '新',
+        '微博线报': '微',
+        '微博超话': '超',
+        '好单线报': '好',
+        '豆瓣线报': '豆',
+        '豆瓣线报-拼组': '拼',
+        '豆瓣线报-买组': '买',
+        '豆瓣线报-发组': '发',
+        '豆瓣线报-狗组': '狗',
+        '豆瓣线报-爱猫生活': '猫',
+        '豆瓣线报-爱猫澡盆': '澡',
+        '小嘀咕': '嘀',
+        '葫芦侠三楼': '葫',
+        '小刀娱乐网': '刀',
+        '3K8资讯网': '3',
+        'YYOK大全': 'Y',
+        '活动资讯网': '活',
+        '免费赚钱中心': '免'
+    };
+    
+    if (exactMatchMap[categoryName]) {
+        return exactMatchMap[categoryName];
+    }
+    
+    // 2. 包含匹配（处理可能带子分类的情况）
+    const containsMatchMap = [
+        { keywords: ['赚客吧'], avatar: '赚' },
+        { keywords: ['新赚吧'], avatar: '新' },
+        { keywords: ['微博线报'], avatar: '微' },
+        { keywords: ['微博超话'], avatar: '超' },
+        { keywords: ['好单线报'], avatar: '好' },
+        { keywords: ['豆瓣线报'], avatar: '豆' },
+        { keywords: ['拼组'], avatar: '拼' },
+        { keywords: ['买组'], avatar: '买' },
+        { keywords: ['发组'], avatar: '发' },
+        { keywords: ['狗组'], avatar: '狗' },
+        { keywords: ['爱猫生活'], avatar: '猫' },
+        { keywords: ['爱猫澡盆'], avatar: '澡' },
+        { keywords: ['小嘀咕'], avatar: '嘀' },
+        { keywords: ['葫芦侠三楼'], avatar: '葫' },
+        { keywords: ['小刀娱乐网'], avatar: '刀' },
+        { keywords: ['3K8资讯网'], avatar: '3' },
+        { keywords: ['YYOK大全'], avatar: 'Y' },
+        { keywords: ['活动资讯网'], avatar: '活' },
+        { keywords: ['免费赚钱中心'], avatar: '免' }
+    ];
+    
+    for (const rule of containsMatchMap) {
+        for (const keyword of rule.keywords) {
+            if (categoryName.includes(keyword)) {
+                return rule.avatar;
+            }
+        }
+    }
+    
+    // 3. 处理微博/好单线报的子分类（线报活动、食品、饮料等）
+    const subCategoryMap = {
+        '线报活动': '活',
+        '食品': '食',
+        '饮料': '饮',
+        '蛋肉': '肉',
+        '粮油': '粮',
+        '果蔬': '果',
+        '日用': '日',
+        '服饰': '服',
+        '美妆': '妆',
+        '母婴': '婴',
+        '健康': '健',
+        '数码': '数',
+        '家用': '家',
+        '娱乐': '娱',
+        '运动': '运',
+        '宠物': '宠',
+        '更多': '更',
+        '淘宝': '淘',
+        '京东': '京',
+        '拼多多': '拼',
+        '外卖团购': '外',
+        '其他活动': '其',
+        '整点': '整',
+        '猫超': '猫'
+    };
+    
+    for (const [key, value] of Object.entries(subCategoryMap)) {
+        if (categoryName.includes(key)) {
+            return value;
+        }
+    }
+    
+    // 4. 如果分类名包含特殊标识但无法识别，取第一个中文字符
+    const chineseMatch = categoryName.match(/[\u4e00-\u9fa5]/);
+    if (chineseMatch) {
+        return chineseMatch[0];
+    }
+    
+    // 5. 取第一个字母（大写）
+    const letterMatch = categoryName.match(/[A-Za-z]/);
+    if (letterMatch) {
+        return letterMatch[0].toUpperCase();
+    }
+    
+    // 6. 默认头像
+    return '🍀';
+}
+
 // ============== 工具函数 ==============
 function daysComputed(time) {
   var oldTimeFormat = new Date(time.replace(/-/g, '/'));
@@ -311,17 +423,29 @@ function listfilter(group, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilou
 }
 
 // ============== 推送函数 ==============
-async function pushMeNotify(title, content) {
+async function pushMeNotify(title, content, categoryName = '') {
   if (!PUSHME_KEY) {
     console.log('⚠️ 未配置 PUSHME_KEY，请设置环境变量');
     return false;
+  }
+
+  // 根据分类名获取头像字符
+  let avatar = getAvatarFromCategory(categoryName);
+  
+  // 构建带分组的标题：格式为 [#分组!头像]标题
+  // 分组统一使用 "线报"，这样所有消息在同一个分组下，但头像不同
+  let finalTitle = `[#线报!${avatar}]${title}`;
+  
+  // 标题长度限制
+  if (finalTitle.length > 100) {
+    finalTitle = finalTitle.substring(0, 100);
   }
 
   try {
     const response = await got.post(PUSHME_URL, {
       json: {
         push_key: PUSHME_KEY,
-        title: title.substring(0, 100),
+        title: finalTitle,
         content: content.substring(0, 5000),
         type: "markdown"
       },
@@ -329,7 +453,7 @@ async function pushMeNotify(title, content) {
     });
     
     if (response.body === 'success') {
-      console.log(`✅ PushMe 推送成功: ${title.substring(0, 50)}...`);
+      console.log(`✅ PushMe 推送成功 [头像:${avatar}]: ${title.substring(0, 50)}...`);
       return true;
     } else {
       console.log(`❌ PushMe 推送失败: ${response.body}`);
@@ -492,8 +616,11 @@ module.exports = async (req, res) => {
 🌟 来自cron-job.org定时任务 2026.03.24  
 🌟 由Vercel部署 Upstash提供可持续化储存`, item);
       
-      // PushMe 推送
-      const pushResult = await pushMeNotify(title, content);
+      // 获取分类名（优先使用 catename，然后 category_name）
+      const categoryName = item.catename || item.category_name || '';
+      
+      // PushMe 推送（传入分类名用于设置头像）
+      const pushResult = await pushMeNotify(title, content, categoryName);
       if (pushResult) {
         pushSuccess++;
       } else {
