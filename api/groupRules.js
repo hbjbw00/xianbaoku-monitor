@@ -69,7 +69,6 @@ const groupRules = [
     { keywords: ['小蓝袋'], groupName: '小蓝袋' },
     { keywords: ['盒马'], groupName: '盒马' },
     { keywords: ['好想来'], groupName: '好想来' },
-    { keywords: ['威化饼'], groupName: '威化饼' },
     
     // 数码/手机
     { keywords: ['小米', '红米', 'REDMI'], groupName: '小米' },
@@ -105,7 +104,7 @@ const groupRules = [
     { keywords: ['法丽兹'], groupName: '法丽兹' },
     { keywords: ['EVISU'], groupName: 'EVISU' },
     { keywords: ['蕉内', 'BANANAIN'], groupName: '蕉内' },
-    { keywords: ['海伦'], groupName: '海伦' },
+    { keywords: ['海伦凯勒'], groupName: '海伦凯勒' },
     { keywords: ['LACOSTE'], groupName: 'LACOSTE' },
     { keywords: ['LOEWE', '罗意威'], groupName: '罗意威' },
     { keywords: ['JIMMYCHOO'], groupName: 'JimmyChoo' },
@@ -137,7 +136,7 @@ const groupRules = [
     { keywords: ['必中'], groupName: '必中' },
     { keywords: ['开通'], groupName: '开通' },
     { keywords: ['年卡'], groupName: '年卡' },
-    { keywords: ['面包', '肉松小贝', '馍片', '沙琪玛', '趣多多'], groupName: '零食' },
+    { keywords: ['面包', '肉松小贝', '馍片', '沙琪玛', '趣多多', '威化饼'], groupName: '零食' },
     { keywords: ['电影'], groupName: '电影票' },
     { keywords: ['湿巾'], groupName: '湿巾' },
     { keywords: ['湿厕纸'], groupName: '湿厕纸' },
