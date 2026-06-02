@@ -21,7 +21,7 @@ const groupRules = [
     { keywords: ['中\\.信', '中信'], groupName: '中信银行' },
     { keywords: ['云闪付', '云闪\\.付', '云少妇', 'ysf'], groupName: '云闪付' },
     { keywords: ['数币', '数字人民币'], groupName: '数字人民币' },
-    { keywords: ['立减金', 'ljj'], groupName: '立减金' },
+    { keywords: ['立减金', 'ljj','立减J'], groupName: '立减金' },
     { keywords: ['还款'], groupName: '还款' },
     
     // 运营商类
@@ -69,6 +69,7 @@ const groupRules = [
     { keywords: ['小蓝袋'], groupName: '小蓝袋' },
     { keywords: ['盒马'], groupName: '盒马' },
     { keywords: ['好想来'], groupName: '好想来' },
+    { keywords: ['威化饼'], groupName: '威化饼' },
     
     // 数码/手机
     { keywords: ['小米', '红米', 'REDMI'], groupName: '小米' },
