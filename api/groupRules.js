@@ -7,6 +7,7 @@
 const groupRules = [
     // 运动品牌
     { keywords: ['回力'], groupName: '回力' },
+    { keywords: ['依视路', '膜致', 'X4'], groupName: '眼镜' },
     
     // 银行/金融类
     { keywords: ['平安', '好车主'], groupName: '平安' },
