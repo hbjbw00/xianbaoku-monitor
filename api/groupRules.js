@@ -70,6 +70,7 @@ const groupRules = [
     { keywords: ['小蓝袋'], groupName: '小蓝袋' },
     { keywords: ['盒马'], groupName: '盒马' },
     { keywords: ['好想来'], groupName: '好想来' },
+    { keywords: ['南星'], groupName: '南星面包' },
     
     // 数码/手机
     { keywords: ['小米', '红米', 'REDMI'], groupName: '小米' },
