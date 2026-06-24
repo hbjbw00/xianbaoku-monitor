@@ -157,6 +157,7 @@ const groupRules = [
     { keywords: ['抱枕'], groupName: '抱枕' },
     { keywords: ['手抓饼'], groupName: '手抓饼' },
     { keywords: ['鸡蛋灌饼'], groupName: '鸡蛋灌饼' },
+    { keywords: ['皇家小虎'], groupName: '皇家小虎' },
     { keywords: ['番茄酱', '番茄沙司'], groupName: '番茄酱' },
     { keywords: ['有棵树'], groupName: '有棵树' },
     { keywords: ['查漏补缺'], groupName: '查漏补缺' },
