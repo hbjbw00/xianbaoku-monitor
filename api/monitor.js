@@ -1,7 +1,7 @@
 // api/monitor.js
 const got = require('got');
 const { Redis } = require('@upstash/redis');
-const { getGroupFromTitle } = require('./groupRules');
+const { getGroupFromTitle, getGroupAvatar } = require('./groupRules');
 
 // ============== 配置区域 ==============
 // 从环境变量读取配置
@@ -372,13 +372,31 @@ async function pushMeNotify(title, content, groupName) {
     return false;
   }
 
+  // 限制分组名长度（最多9个字符，PushMe 对分组名的限制）
   let finalGroupName = groupName;
   if (finalGroupName.length > 9) {
     finalGroupName = finalGroupName.substring(0, 9);
   }
   
-  let finalTitle = `[#${finalGroupName}!${finalGroupName}]${title}`;
+  // 查找分组头像配置
+  const avatarConfig = getGroupAvatar(groupName);
+  let avatarPart = finalGroupName; // 默认使用分组名作为文字头像
   
+  if (avatarConfig && avatarConfig.avatarUrl) {
+    // 如果配置了图片地址，使用图片作为头像
+    avatarPart = avatarConfig.avatarUrl;
+    console.log(`🖼️ 分组 "${groupName}" 使用图片头像: ${avatarConfig.avatarUrl.substring(0, 50)}...`);
+  } else {
+    console.log(`📝 分组 "${groupName}" 使用文字头像: "${finalGroupName}"`);
+  }
+  
+  // 构建标题：[#分组名!头像]标题
+  // 格式说明：
+  //   - 分组名：用于在 APP 中分组显示
+  //   - 头像：可以是文字（最多9字符）、emoji 或图片 URL
+  let finalTitle = `[#${finalGroupName}!${avatarPart}]${title}`;
+  
+  // 标题长度限制（PushMe 限制 100 字符）
   if (finalTitle.length > 100) {
     finalTitle = finalTitle.substring(0, 100);
   }
