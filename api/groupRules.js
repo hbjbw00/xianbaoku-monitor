@@ -2,14 +2,15 @@
 // 按优先级顺序排列，匹配到第一个就停止
 // 每个规则包含：
 //   - keywords: 匹配关键词数组（支持正则表达式或普通字符串）
-//   - groupName: 分组显示名称（同时作为头像，最多9个字符）
+//   - groupName: 分组显示名称
+//   - avatarUrl: (可选) 头像图片地址，以 http 或 https 开头，不配置则使用文字头像
 
 const groupRules = [
-    // 运动品牌
+    // ========== 运动品牌 ==========
     { keywords: ['回力'], groupName: '回力' },
     { keywords: ['依视路', '膜致', 'X4'], groupName: '眼镜' },
     
-    // 银行/金融类
+    // ========== 银行/金融类 ==========
     { keywords: ['平安', '好车主'], groupName: '平安' },
     { keywords: ['工\\.行', '工行', '工商'], groupName: '工商银行' },
     { keywords: ['招\\.行', '招行', '招商'], groupName: '招商银行' },
@@ -25,25 +26,24 @@ const groupRules = [
     { keywords: ['立减金', 'ljj','立减J'], groupName: '立减金' },
     { keywords: ['还款'], groupName: '还款' },
     
-    // 运营商类
+    // ========== 运营商类 ==========
     { keywords: ['移动'], groupName: '移动' },
     { keywords: ['联通'], groupName: '联通' },
     { keywords: ['话费'], groupName: '话费' },
     
-    // 视频/娱乐类
+    // ========== 视频/娱乐类 ==========
     { keywords: ['云包场'], groupName: '云包场' },
     { keywords: ['优酷'], groupName: '优酷' },
     
-    // 出行类
+    // ========== 出行类 ==========
     { keywords: ['火车', '12306', '高铁'], groupName: '火车票' },
     { keywords: ['机票'], groupName: '机票' },
     
-    // 支付/优惠类
+    // ========== 支付/优惠类 ==========
     { keywords: ['Q币', 'QB'], groupName: 'Q币' },
     { keywords: ['小红书'], groupName: '小红书' },
     
-    
-    // 食品/饮料
+    // ========== 食品/饮料 ==========
     { keywords: ['肯德基', 'KFC'], groupName: '肯德基' },
     { keywords: ['麦当劳', '麦当当'], groupName: '麦当劳' },
     { keywords: ['塔斯汀'], groupName: '塔斯汀' },
@@ -72,7 +72,7 @@ const groupRules = [
     { keywords: ['好想来'], groupName: '好想来' },
     { keywords: ['南星'], groupName: '南星面包' },
     
-    // 数码/手机
+    // ========== 数码/手机 ==========
     { keywords: ['小米', '红米', 'REDMI'], groupName: '小米' },
     { keywords: ['K90'], groupName: '红米K90' },
     { keywords: ['酷玩'], groupName: '酷玩' },
@@ -81,7 +81,7 @@ const groupRules = [
     { keywords: ['铠侠'], groupName: '铠侠' },
     { keywords: ['酷睿'], groupName: '酷睿' },
     
-    // 王一博代言
+    // ========== 王一博代言 ==========
     { keywords: ['王一博'], groupName: '王一博' },
     { keywords: ['安踏', 'ANTA'], groupName: '安踏' },
     { keywords: ['纯甄','轻酪乳'], groupName: '纯甄' },
@@ -116,7 +116,7 @@ const groupRules = [
     { keywords: ['漫步者'], groupName: '漫步者' },
     { keywords: ['SKG'], groupName: 'SKG' },
     
-    //美妆个护
+    // ========== 美妆个护 ==========
     { keywords: ['Whoo', '后拱辰'], groupName: '后拱辰' },
     { keywords: ['优时颜'], groupName: '优时颜' },
     { keywords: ['舒莱'], groupName: '舒莱' },
@@ -127,7 +127,7 @@ const groupRules = [
     { keywords: ['高露洁'], groupName: '高露洁' },
     { keywords: ['hfp'], groupName: 'HFP' },
     
-    // 其他
+    // ========== 其他 ==========
     { keywords: ['杜蕾斯', '冈本', '避孕套', '小雨伞', '小玩具', '情趣'], groupName: '情趣用品' },
     { keywords: ['薪水'], groupName: '薪水心愿' },
     { keywords: ['河南'], groupName: '河南' },
@@ -138,7 +138,7 @@ const groupRules = [
     { keywords: ['必中'], groupName: '必中' },
     { keywords: ['开通'], groupName: '开通' },
     { keywords: ['年卡'], groupName: '年卡' },
-    { keywords: ['面包', '肉松小贝', '馍片', '沙琪玛', '趣多多', '威化饼'], groupName: '零食' },
+    { keywords: ['面包', '肉松小贝', '馍片', '沙琪玛', '趣多多', '威化饼'], groupName: '零食', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmYzxAO.png' },
     { keywords: ['电影'], groupName: '电影票' },
     { keywords: ['湿巾'], groupName: '湿巾' },
     { keywords: ['湿厕纸'], groupName: '湿厕纸' },
@@ -163,6 +163,23 @@ const groupRules = [
     { keywords: ['查漏补缺'], groupName: '查漏补缺' },
     { keywords: ['税'], groupName: '退税' }
 ];
+
+/**
+ * 根据分组名查找对应的头像配置
+ * @param {string} groupName - 分组名
+ * @returns {object|null} 返回 { groupName, avatarUrl } 或 null
+ */
+function getGroupAvatar(groupName) {
+    if (!groupName) return null;
+    const rule = groupRules.find(r => r.groupName === groupName);
+    if (rule) {
+        return {
+            groupName: rule.groupName,
+            avatarUrl: rule.avatarUrl || null
+        };
+    }
+    return null;
+}
 
 /**
  * 从标题中提取分组名
@@ -202,4 +219,4 @@ function getGroupFromTitle(title, zkt_gjc) {
     return null;
 }
 
-module.exports = { groupRules, getGroupFromTitle };
+module.exports = { groupRules, getGroupAvatar, getGroupFromTitle };
