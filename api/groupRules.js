@@ -73,7 +73,7 @@ const groupRules = [
     { keywords: ['南星'], groupName: '南星面包' },
     
     // ========== 数码/手机 ==========
-    { keywords: ['小米', '红米', 'REDMI'], groupName: '小米' },
+    { keywords: ['小米', '红米', 'REDMI'], groupName: '小米', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtpeqx.png' },
     { keywords: ['K90'], groupName: '红米K90' },
     { keywords: ['酷玩'], groupName: '酷玩' },
     { keywords: ['Crucial'], groupName: 'Crucial' },
@@ -143,7 +143,7 @@ const groupRules = [
     { keywords: ['湿巾'], groupName: '湿巾' },
     { keywords: ['湿厕纸'], groupName: '湿厕纸' },
     { keywords: ['擦镜', '镜片清洁', '镜头清洁', '蔡司'], groupName: '擦镜纸' },
-    { keywords: ['雪糕', '冰淇淋'], groupName: '冰淇淋'avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtSrb6.png' },
+    { keywords: ['雪糕', '冰淇淋'], groupName: '冰淇淋', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtSrb6.png' },
     { keywords: ['洗烘', '洗衣机'], groupName: '洗衣机' },
     { keywords: ['火腿肠', '王中王'], groupName: '火腿肠' },
     { keywords: ['五常'], groupName: '五常大米' },
