@@ -143,7 +143,7 @@ const groupRules = [
     { keywords: ['湿巾'], groupName: '湿巾' },
     { keywords: ['湿厕纸'], groupName: '湿厕纸' },
     { keywords: ['擦镜', '镜片清洁', '镜头清洁', '蔡司'], groupName: '擦镜纸' },
-    { keywords: ['雪糕', '冰淇淋'], groupName: '冰淇淋' },
+    { keywords: ['雪糕', '冰淇淋'], groupName: '冰淇淋'avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtSrb6.png' },
     { keywords: ['洗烘', '洗衣机'], groupName: '洗衣机' },
     { keywords: ['火腿肠', '王中王'], groupName: '火腿肠' },
     { keywords: ['五常'], groupName: '五常大米' },
