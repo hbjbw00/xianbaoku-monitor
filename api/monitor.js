@@ -316,37 +316,29 @@ function listfilter(group, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilou
 }
 
 // ============== 核心存储函数（优化版）==============
-/**
- * 检查消息是否已发送，如果是新消息则自动标记。
- * 完全依赖内存缓存，极大减少 Redis 命令。
- */
 async function checkAndMarkMessage(id) {
-    // 1. 先查内存缓存
+    // 1. 先查内存缓存（本次执行中已经处理过的不再处理）
     if (sentIdsCache.has(id)) {
         return false; // 已经处理过，不是新消息
     }
 
-    // 2. 如果 Redis 配额未用尽，尝试执行一次检查和标记
+    // 2. 尝试 Redis
     try {
         const key = `${REDIS_KEY_PREFIX}${id}`;
-        // 使用 SETNX 原子性地检查并设置
         const added = await redis.setnx(key, Date.now());
         if (added === 1) {
             await redis.expire(key, EXPIRE_SECONDS);
         }
         // 无论是否成功，都加入内存缓存，避免重复尝试
         sentIdsCache.add(id);
-        return added === 1; // 返回是否是新消息
+        return added === 1;
     } catch (error) {
-        // 3. 关键：当 Redis 配额用尽时，这里会捕获错误
-        console.warn(`⚠️ Redis 操作失败 (ID: ${id})，依赖内存缓存。`);
-        // 将 ID 加入内存缓存，避免在本次执行中再次尝试
+        // 3. 配额用尽时的降级策略：视为新消息，推送！
+        console.warn(`⚠️ Redis 配额用尽 (ID: ${id})，本次执行视为新消息推送。`);
+        // 加入内存缓存，防止本次执行中重复推送同一条
         sentIdsCache.add(id);
-        // 注意：在这种情况下，我们无法确定它是否是新消息。
-        // 为了安全（避免重复推送），我们保守地返回 false，
-        // 即认为它已存在，在本次执行中不再推送。
-        // 这可能导致本次有少量漏推，但能防止配额用尽时大量重复推送和错误。
-        return false; 
+        // 返回 true，让这条消息能够被推送
+        return true;
     }
 }
 
