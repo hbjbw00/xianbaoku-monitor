@@ -315,53 +315,38 @@ function listfilter(group, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilou
   return true;
 }
 
-// ============== 优化版 Redis 存储函数 ==============
+// ============== 核心存储函数（优化版）==============
 /**
- * 检查消息是否已发送（使用内存缓存 + Redis）
- * 每条消息只会在第一次检查时访问 Redis，后续都命中内存缓存
+ * 检查消息是否已发送，如果是新消息则自动标记。
+ * 完全依赖内存缓存，极大减少 Redis 命令。
  */
-async function isNewMessage(id) {
-    // 1. 先检查内存缓存
+async function checkAndMarkMessage(id) {
+    // 1. 先查内存缓存
     if (sentIdsCache.has(id)) {
-        return false; // 本次执行中已经处理过
+        return false; // 已经处理过，不是新消息
     }
-    
-    try {
-        // 2. 检查 Redis（使用独立的 Key）
-        const key = `${REDIS_KEY_PREFIX}${id}`;
-        const exists = await redis.exists(key);
-        
-        if (exists === 1) {
-            // Redis 中存在，加入内存缓存，避免重复检查
-            sentIdsCache.add(id);
-            return false;
-        }
-        
-        // 3. 不存在，是新消息
-        return true;
-    } catch (error) {
-        console.error(`Redis 检查错误 (ID: ${id}):`, error.message);
-        // 出错时视为新消息，避免漏掉（可能会重复，但不会漏）
-        return true;
-    }
-}
 
-/**
- * 保存已发送的消息 ID
- */
-async function markMessageSent(id) {
+    // 2. 如果 Redis 配额未用尽，尝试执行一次检查和标记
     try {
         const key = `${REDIS_KEY_PREFIX}${id}`;
-        // 使用 SETNX + EXPIRE 一次性完成
+        // 使用 SETNX 原子性地检查并设置
         const added = await redis.setnx(key, Date.now());
         if (added === 1) {
             await redis.expire(key, EXPIRE_SECONDS);
         }
-        // 加入内存缓存
+        // 无论是否成功，都加入内存缓存，避免重复尝试
         sentIdsCache.add(id);
-        console.log(`💾 已记录 ID: ${id}`);
+        return added === 1; // 返回是否是新消息
     } catch (error) {
-        console.error(`Redis 保存错误 (ID: ${id}):`, error.message);
+        // 3. 关键：当 Redis 配额用尽时，这里会捕获错误
+        console.warn(`⚠️ Redis 操作失败 (ID: ${id})，依赖内存缓存。`);
+        // 将 ID 加入内存缓存，避免在本次执行中再次尝试
+        sentIdsCache.add(id);
+        // 注意：在这种情况下，我们无法确定它是否是新消息。
+        // 为了安全（避免重复推送），我们保守地返回 false，
+        // 即认为它已存在，在本次执行中不再推送。
+        // 这可能导致本次有少量漏推，但能防止配额用尽时大量重复推送和错误。
+        return false; 
     }
 }
 
@@ -490,11 +475,10 @@ module.exports = async (req, res) => {
     let alreadySentCount = 0;
     
     for (const item of xbkdata) {
-      const isNew = await isNewMessage(item.id);
+      const isNew = await checkAndMarkMessage(item.id);
       
       if (isNew) {
-        // 新消息，先标记为已发送（避免后续重复）
-        await markMessageSent(item.id);
+        // checkAndMarkMessage 已经完成了标记和保存，无需额外操作
         
         if (listfilter(item, pingbifenlei, pingbilouzhu, zhanxianlouzhu, pingbilouzhuplus, pingbibiaoti, zhanxianbiaoti, pingbibiaotiplus, pingbineirong, zhanxianneirong, pingbineirongplus, pingbitime)) {
           newItems.push(item);
