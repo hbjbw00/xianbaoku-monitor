@@ -7,19 +7,18 @@
 
 const groupRules = [
     // ========== 运动品牌 ==========
-    { keywords: ['回力'], groupName: '回力' },
-    { keywords: ['依视路', '膜致', 'X4'], groupName: '眼镜' },
+    { keywords: ['回力'], groupName: '回力', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtRH76.png' },
     
     // ========== 银行/金融类 ==========
-    { keywords: ['平安', '好车主'], groupName: '平安' },
-    { keywords: ['工\\.行', '工行', '工商'], groupName: '工商银行' },
-    { keywords: ['招\\.行', '招行', '招商'], groupName: '招商银行' },
-    { keywords: ['中\\.行', '中行', '中国银行'], groupName: '中国银行' },
-    { keywords: ['农\\.行', '农行', '农业'], groupName: '农业银行' },
+    { keywords: ['平安', '好车主'], groupName: '平安', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWpnI.png' },
+    { keywords: ['工\\.行', '工行', '工商'], groupName: '工商银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWejs.png' },
+    { keywords: ['招\\.行', '招行', '招商'], groupName: '招商银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWv5T.png' },
+    { keywords: ['中\\.行', '中行', '中国银行'], groupName: '中国银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtfSGF.png' },
+    { keywords: ['农\\.行', '农行', '农业'], groupName: '农业银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmth36J.png' },
     { keywords: ['建\\.行', '建行', '建设'], groupName: '建设银行', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtSYUU.png' },
-    { keywords: ['交\\.行', '交行', '交通'], groupName: '交通银行' },
-    { keywords: ['邮\\.储', '邮储', '邮政'], groupName: '邮政储蓄' },
-    { keywords: ['浦\\.发', '浦发'], groupName: '浦发银行' },
+    { keywords: ['交\\.行', '交行', '交通'], groupName: '交通银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmth0pD.png' },
+    { keywords: ['邮\\.储', '邮储', '邮政'], groupName: '邮政储蓄', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmthRtf.png' },
+    { keywords: ['浦\\.发', '浦发'], groupName: '浦发银行', avatarUrl: '' },
     { keywords: ['中\\.信', '中信'], groupName: '中信银行' },
     { keywords: ['云闪付', '云闪\\.付', '云少妇', 'ysf'], groupName: '云闪付' },
     { keywords: ['数币', '数字人民币'], groupName: '数字人民币' },
