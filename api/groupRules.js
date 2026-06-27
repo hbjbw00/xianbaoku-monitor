@@ -7,27 +7,27 @@
 
 const groupRules = [
     // ========== 运动品牌 ==========
-    { keywords: ['回力'], groupName: '回力', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/8ad2f94739112528a0bcd053fa8dcf4f10cb9dac807a67ee590cfdd8f3932d58/%E5%9B%9E%E5%8A%9B.png?fname=%E5%9B%9E%E5%8A%9B.png' },
+    { keywords: ['回力'], groupName: '回力', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtRH76.png' },
     
     // ========== 银行/金融类 ==========
-    { keywords: ['平安', '好车主'], groupName: '平安', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/8b68854b604d70792f58877b45eed8df677f92dbb0c3b1096b471a99a8f4e4dc/%E5%B9%B3%E5%AE%89%E5%A5%BD%E8%BD%A6%E4%B8%BB.png?fname=%E5%B9%B3%E5%AE%89%E5%A5%BD%E8%BD%A6%E4%B8%BB.png' },
-    { keywords: ['工\\.行', '工行', '工商'], groupName: '工商银行', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/f4549c981b2e7bf1bb41b9c1447dcbada62ec3bfd1f06ce76377ad7c204cc1d4/%E5%B7%A5%E8%A1%8C.png?fname=%E5%B7%A5%E8%A1%8C.png' },
-    { keywords: ['招\\.行', '招行', '招商'], groupName: '招商银行', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/09bd74e3c2035824e9e023304d257e656b79e04b2fb385279ce745738abe1007/%E6%8B%9B%E8%A1%8C.png?fname=%E6%8B%9B%E8%A1%8C.png' },
-    { keywords: ['中\\.行', '中行', '中国银行'], groupName: '中国银行', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/21666ceba2dee2fe294027f269a57436d56f6d1c3c0cff5e20e53322521bfe3a/%E4%B8%AD%E8%A1%8C.png?fname=%E4%B8%AD%E8%A1%8C.png' },
-    { keywords: ['农\\.行', '农行', '农业'], groupName: '农业银行', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/f74dcb9f33e61750406829d86575f4546e72cfabb8dcc023baae7b18fd539b55/%E5%86%9C%E8%A1%8C.png?fname=%E5%86%9C%E8%A1%8C.png' },
-    { keywords: ['建\\.行', '建行', '建设'], groupName: '建设银行', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/3ab28a5d657bceb43593ad36d32239c991ba4770f978d8b58d050b6f4efc76d5/%E5%BB%BA%E8%A1%8C.png?fname=%E5%BB%BA%E8%A1%8C.png' },
-    { keywords: ['交\\.行', '交行', '交通'], groupName: '交通银行', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/851fb1c13b5ef7c8599bc8251a4c004f46e99e3e23de2c6377ecb49003568605/%E4%BA%A4%E8%A1%8C.png?fname=%E4%BA%A4%E8%A1%8C.png' },
-    { keywords: ['邮\\.储', '邮储', '邮政'], groupName: '邮政储蓄', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/240e982ea41c1cccdcc99444178a6cc9fd1f2ea158c56694d766d3f2cc8dbe9f/%E9%82%AE%E6%94%BF.png?fname=%E9%82%AE%E6%94%BF.png' },
-    { keywords: ['浦\\.发', '浦发'], groupName: '浦发银行', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/0c1163096be17e3d54a0eb95c0e16b2afd5e71f9fe056068914ddf9640da5b2f/%E6%B5%A6%E5%8F%91.png?fname=%E6%B5%A6%E5%8F%91.png' },
-    { keywords: ['中\\.信', '中信'], groupName: '中信银行', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/9438590f05098515ebebf0b357865a541d8b8f1af9c5726eeca3911ac899b9ab/%E4%B8%AD%E4%BF%A1.png?fname=%E4%B8%AD%E4%BF%A1.png' },
-    { keywords: ['云闪付', '云闪\\.付', '云少妇', 'ysf'], groupName: '云闪付', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/5d59cedc7f9be50ad1c25cf30275da2ec0aa444228d1143963a6583e7bb1918e/%E4%BA%91%E9%97%AA%E4%BB%98.png?fname=%E4%BA%91%E9%97%AA%E4%BB%98.png' },
-    { keywords: ['数币', '数字人民币'], groupName: '数字人民币', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/94b165eabed27c737d5b1db66dfab3fc7a9b79b2ec8488606f91037b6ffe49cc/%E6%95%B0%E5%B8%81.png?fname=%E6%95%B0%E5%B8%81.png' },
-    { keywords: ['立减金', 'ljj','立减J'], groupName: '立减金', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/f0ca206fae093d92d262627454317e2f8aedc24261f3d60e6670f1675b777b54/%E7%AB%8B%E5%87%8F%E9%87%91.png?fname=%E7%AB%8B%E5%87%8F%E9%87%91.png' },
-    { keywords: ['还款'], groupName: '还款', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/926cad405c684904018db74811fc6a656509e339665840c3099ae5e4464cf372/%E8%BF%98%E6%AC%BE.png?fname=%E8%BF%98%E6%AC%BE.png' },
+    { keywords: ['平安', '好车主'], groupName: '平安', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWpnI.png' },
+    { keywords: ['工\\.行', '工行', '工商'], groupName: '工商银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWejs.png' },
+    { keywords: ['招\\.行', '招行', '招商'], groupName: '招商银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWv5T.png' },
+    { keywords: ['中\\.行', '中行', '中国银行'], groupName: '中国银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtfSGF.png' },
+    { keywords: ['农\\.行', '农行', '农业'], groupName: '农业银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmth36J.png' },
+    { keywords: ['建\\.行', '建行', '建设'], groupName: '建设银行', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtSYUU.png' },
+    { keywords: ['交\\.行', '交行', '交通'], groupName: '交通银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmth0pD.png' },
+    { keywords: ['邮\\.储', '邮储', '邮政'], groupName: '邮政储蓄', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmthRtf.png' },
+    { keywords: ['浦\\.发', '浦发'], groupName: '浦发银行', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUuSPJ.png' },
+    { keywords: ['中\\.信', '中信'], groupName: '中信银行', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUuFr6.png' },
+    { keywords: ['云闪付', '云闪\\.付', '云少妇', 'ysf'], groupName: '云闪付', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUukqK.png' },
+    { keywords: ['数币', '数字人民币'], groupName: '数字人民币', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUnx54.png' },
+    { keywords: ['立减金', 'ljj','立减J'], groupName: '立减金', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUuCx1.png' },
+    { keywords: ['还款'], groupName: '还款', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUupG9.png' },
     
     // ========== 运营商类 ==========
-    { keywords: ['移动'], groupName: '移动', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/7fe4df308eddfcf32ede4368d863b4d94adbefdee34e6c28813240141c692654/%E7%A7%BB%E5%8A%A8.png?fname=%E7%A7%BB%E5%8A%A8.png' },
-    { keywords: ['联通'], groupName: '联通', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/34ffa31938a7e3b0e1a7ad20f2d9e963eadb8f96b9e7d1be9d4f4942ec16e0f4/%E8%81%94%E9%80%9A.png?fname=%E8%81%94%E9%80%9A.png' },
+    { keywords: ['移动'], groupName: '移动', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUuiKx.png' },
+    { keywords: ['联通'], groupName: '联通', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUu92R.png' },
     { keywords: ['话费'], groupName: '话费', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/7a53c8838370e3352d40b7ba8d2d8a3d75cc3f8dc1991b5c8f227a716fe5d33a/%E8%AF%9D%E8%B4%B9.png?fname=%E8%AF%9D%E8%B4%B9.png' },
     
     // ========== 视频/娱乐类 ==========
@@ -72,7 +72,7 @@ const groupRules = [
     { keywords: ['南星'], groupName: '南星面包', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/eec602317e03b6a5c9c62ae153a7749d72079c254a472367d93a3558241bfd1a/%E5%8D%97%E6%98%9F.png?fname=%E5%8D%97%E6%98%9F.png' },
     
     // ========== 数码/手机 ==========
-    { keywords: ['小米', '红米', 'REDMI'], groupName: '小米', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/ff73580a4d58618f6ec0066ef5ede08c1831b34c7b530daa8599e8388dfa97c7/%E5%B0%8F%E7%B1%B3.png?fname=%E5%B0%8F%E7%B1%B3.png' },
+    { keywords: ['小米', '红米', 'REDMI'], groupName: '小米', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtpeqx.png' },
     { keywords: ['K90'], groupName: '红米K90', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/ff73580a4d58618f6ec0066ef5ede08c1831b34c7b530daa8599e8388dfa97c7/%E5%B0%8F%E7%B1%B3.png?fname=%E5%B0%8F%E7%B1%B3.png' },
     { keywords: ['希捷', '酷玩'], groupName: '希捷', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/cb02e5751727a95cd94f0252e08a953885e1bd30a10ac1f648231db14f34db34/%E9%85%B7%E7%8E%A9.png?fname=%E9%85%B7%E7%8E%A9.png' },
     { keywords: ['铠侠'], groupName: '铠侠', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/136350394c2737c0fb14516da17b0d406d25bd6d288053d336cbb01aa740c0ac/%E9%93%A0%E4%BE%A0.png?fname=%E9%93%A0%E4%BE%A0.png' },
@@ -135,12 +135,12 @@ const groupRules = [
     { keywords: ['必中'], groupName: '必中', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/30d8896e6b117ad2eccd9dece771bc5b49c04f7bdb89149ad8851391f4ae5346/%E5%BF%85%E4%B8%AD.png?fname=%E5%BF%85%E4%B8%AD.png' },
     { keywords: ['开通'], groupName: '开通', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/479d22eecda873d9b12535974925552bf2a280fa0dd21a5a9879f88330304f85/%E5%BC%80%E9%80%9A.png?fname=%E5%BC%80%E9%80%9A.png' },
     { keywords: ['年卡'], groupName: '年卡', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/6dae33e64195eb4b130633fc5a90d769f37c01f65bf72ecf34f80eab65c4810c/%E5%B9%B4%E5%8D%A1.png?fname=%E5%B9%B4%E5%8D%A1.png' },
-    { keywords: ['面包', '肉松小贝', '馍片', '沙琪玛', '趣多多', '威化饼'], groupName: '零食', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/0212d23c734ea7be4585cb98fc1ab7e3446f27d351f10303b989b09e37be4f29/%E9%9B%B6%E9%A3%9F.png?fname=%E9%9B%B6%E9%A3%9F.png' },
+    { keywords: ['面包', '肉松小贝', '馍片', '沙琪玛', '趣多多', '威化饼'], groupName: '零食', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmYzxAO.png' },
     { keywords: ['电影'], groupName: '电影票', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/853a0957854c3de97e91451d217ad768b120ac999bb3191683ad6ed8a63bd57c/%E7%94%B5%E5%BD%B1%E7%A5%A8.png?fname=%E7%94%B5%E5%BD%B1%E7%A5%A8.png' },
     { keywords: ['湿巾'], groupName: '湿巾', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/4e2588feb7d22abfea3882800e426d5f0aaa97edac84b6ba338288e9f00bd08d/%E6%B9%BF%E5%B7%BE.png?fname=%E6%B9%BF%E5%B7%BE.png' },
     { keywords: ['湿厕纸'], groupName: '湿厕纸', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/1646f86408b3919bef97fedc3ab6c259100d5aa6e1aae4030626887f6a8807d0/%E6%B9%BF%E5%8E%95%E7%BA%B8.png?fname=%E6%B9%BF%E5%8E%95%E7%BA%B8.png' },
     { keywords: ['擦镜', '镜片清洁', '镜头清洁', '蔡司'], groupName: '擦镜纸', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/4709c3b207e3fb4cb30a36705192a35c9f3311ad6821dda750c179a6a761985d/%E6%93%A6%E9%95%9C%E7%BA%B8.png?fname=%E6%93%A6%E9%95%9C%E7%BA%B8.png' },
-    { keywords: ['雪糕', '冰淇淋'], groupName: '冰淇淋', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/ce739f5f8842333dda2841215f5f8e8d66d820b01b95b3c0ea56c05096ddacbe/%E5%86%B0%E6%B7%87%E6%B7%8B.png?fname=%E5%86%B0%E6%B7%87%E6%B7%8B.png' },
+    { keywords: ['雪糕', '冰淇淋'], groupName: '冰淇淋', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtSrb6.png' },
     { keywords: ['洗烘', '洗衣机'], groupName: '洗衣机', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/832a986d44bfe1beb94804c62ba1daed3215891301d59e863c08b4938b7078b9/%E6%B4%97%E8%A1%A3%E6%9C%BA.png?fname=%E6%B4%97%E8%A1%A3%E6%9C%BA.png' },
     { keywords: ['火腿肠', '王中王'], groupName: '火腿肠', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/ac617054e935db20a7dfe11f9953027131a73a40ed7d43f45844c14879d499f8/%E7%81%AB%E8%85%BF%E8%82%A0.png?fname=%E7%81%AB%E8%85%BF%E8%82%A0.png' },
     { keywords: ['五常'], groupName: '五常大米', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/7cb9c2626a8d4ebc078248cb47ef3070d0b91eb8ecca2164b6b8f149bb27c8e9/%E4%BA%94%E5%B8%B8%E5%A4%A7%E7%B1%B3.png?fname=%E4%BA%94%E5%B8%B8%E5%A4%A7%E7%B1%B3.png' },
