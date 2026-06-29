@@ -44,8 +44,7 @@ const groupRules = [
     
     // ========== 食品/饮料 ==========
     { keywords: ['肯德基', 'KFC'], groupName: '肯德基', avatarUrl: 'https://y.zdmimg.com/202206/21/62b193713cd3f1713.jpg' },
-    { keywords: ['麦当劳', '麦当当'], groupName: '麦当劳', avatarUrl: 'https://y.zdmimg.com/202107/26/60fe7e8f0b8b14201.jpg
-    ' },
+    { keywords: ['麦当劳', '麦当当'], groupName: '麦当劳', avatarUrl: 'https://y.zdmimg.com/202107/26/60fe7e8f0b8b14201.jpg' },
     { keywords: ['塔斯汀'], groupName: '塔斯汀', avatarUrl: 'https://qny.smzdm.com/202407/04/6686048f9cb486268.jpg' },
     { keywords: ['华莱士'], groupName: '华莱士', avatarUrl: 'https://a.zdmimg.com/202603/12/69b2023173aea2994.jpg_a640.jpg' },
     { keywords: ['蜜雪'], groupName: '蜜雪冰城', avatarUrl: 'https://qny.smzdm.com/202302/16/63edee6afcf2b8644.jpg' },
