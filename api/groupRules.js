@@ -7,26 +7,26 @@
 
 const groupRules = [
     // ========== 运动品牌 ==========
-    { keywords: ['回力'], groupName: '回力', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtRH76.png' },
+    { keywords: ['回力'], groupName: '回力', avatarUrl: 'https://y.zdmimg.com/202111/12/618ddc32a62d3856.jpg' },
     
     // ========== 银行/金融类 ==========
-    { keywords: ['平安', '好车主'], groupName: '平安', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWpnI.png' },
-    { keywords: ['工\\.行', '工行', '工商'], groupName: '工商银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWejs.png' },
-    { keywords: ['招\\.行', '招行', '招商'], groupName: '招商银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtWv5T.png' },
-    { keywords: ['中\\.行', '中行', '中国银行'], groupName: '中国银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmtfSGF.png' },
-    { keywords: ['农\\.行', '农行', '农业'], groupName: '农业银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmth36J.png' },
-    { keywords: ['建\\.行', '建行', '建设'], groupName: '建设银行', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtSYUU.png' },
-    { keywords: ['交\\.行', '交行', '交通'], groupName: '交通银行', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmth0pD.png' },
-    { keywords: ['邮\\.储', '邮储', '邮政'], groupName: '邮政储蓄', avatarUrl: 'https://s41.ax1x.com/2026/06/25/pmthRtf.png' },
-    { keywords: ['浦\\.发', '浦发'], groupName: '浦发银行', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUuSPJ.png' },
-    { keywords: ['中\\.信', '中信'], groupName: '中信银行', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUuFr6.png' },
-    { keywords: ['云闪付', '云闪\\.付', '云少妇', 'ysf'], groupName: '云闪付', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUukqK.png' },
-    { keywords: ['数币', '数字人民币'], groupName: '数字人民币', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUnx54.png' },
-    { keywords: ['立减金', 'ljj','立减J'], groupName: '立减金', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUuCx1.png' },
-    { keywords: ['还款'], groupName: '还款', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUupG9.png' },
+    { keywords: ['平安', '好车主'], groupName: '平安', avatarUrl: 'https://qny.smzdm.com/201712/19/5a38dae5447e65207.jpg' },
+    { keywords: ['工\\.行', '工行', '工商'], groupName: '工商银行', avatarUrl: 'https://y.zdmimg.com/202103/16/60501ebc051394123.jpg' },
+    { keywords: ['招\\.行', '招行', '招商'], groupName: '招商银行', avatarUrl: 'https://y.zdmimg.com/202103/06/60431db563a1d9112.jpg' },
+    { keywords: ['中\\.行', '中行', '中国银行'], groupName: '中国银行', avatarUrl: 'https://y.zdmimg.com/201911/04/5dbfa04fca5b59973.jpg' },
+    { keywords: ['农\\.行', '农行', '农业'], groupName: '农业银行', avatarUrl: 'https://y.zdmimg.com/202111/17/6194917f77bbd7789.jpg' },
+    { keywords: ['建\\.行', '建行', '建设'], groupName: '建设银行', avatarUrl: 'https://y.zdmimg.com/201911/04/5dbf93afd69938903.jpg' },
+    { keywords: ['交\\.行', '交行', '交通'], groupName: '交通银行', avatarUrl: 'https://y.zdmimg.com/201911/04/5dbf9504cb1185200.jpg' },
+    { keywords: ['邮\\.储', '邮储', '邮政'], groupName: '邮政储蓄', avatarUrl: 'https://y.zdmimg.com/202101/22/600a8c39a54813408.jpg' },
+    { keywords: ['浦\\.发', '浦发'], groupName: '浦发银行', avatarUrl: 'https://y.zdmimg.com/202103/16/60501b929c1921914.jpg' },
+    { keywords: ['中\\.信', '中信'], groupName: '中信银行', avatarUrl: 'https://y.zdmimg.com/201911/04/5dbf9d16741761987.jpg' },
+    { keywords: ['云闪付', '云闪\\.付', '云少妇', 'ysf'], groupName: '云闪付', avatarUrl: 'https://qny.smzdm.com/202411/12/67330617bab827729.jpg' },
+    { keywords: ['数币', '数字人民币'], groupName: '数字人民币', avatarUrl: 'https://qna.smzdm.com/202303/07/6406f3e05ee0f4952.jpg_a320.jpg' },
+    { keywords: ['立减金', 'ljj','立减J'], groupName: '立减金', avatarUrl: 'https://a.zdmimg.com/202605/26/6a14f9b80d60a7622.jpg_a320.jpg' },
+    { keywords: ['还款'], groupName: '还款', avatarUrl: 'https://qna.smzdm.com/202107/29/61023e36085492714.jpg_a320.jpg' },
     
     // ========== 运营商类 ==========
-    { keywords: ['移动'], groupName: '移动', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUuiKx.png' },
+    { keywords: ['移动'], groupName: '移动', avatarUrl: 'https://y.zdmimg.com/202103/08/6045cd73a28ba4921.jpg' },
     { keywords: ['联通'], groupName: '联通', avatarUrl: 'https://s41.ax1x.com/2026/06/27/pmUu92R.png' },
     { keywords: ['话费'], groupName: '话费', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/7a53c8838370e3352d40b7ba8d2d8a3d75cc3f8dc1991b5c8f227a716fe5d33a/%E8%AF%9D%E8%B4%B9.png?fname=%E8%AF%9D%E8%B4%B9.png' },
     
@@ -137,7 +137,7 @@ const groupRules = [
     { keywords: ['年卡'], groupName: '年卡', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/6dae33e64195eb4b130633fc5a90d769f37c01f65bf72ecf34f80eab65c4810c/%E5%B9%B4%E5%8D%A1.png?fname=%E5%B9%B4%E5%8D%A1.png' },
     { keywords: ['面包', '肉松小贝', '馍片', '沙琪玛', '趣多多', '威化饼'], groupName: '零食', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmYzxAO.png' },
     { keywords: ['电影'], groupName: '电影票', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/853a0957854c3de97e91451d217ad768b120ac999bb3191683ad6ed8a63bd57c/%E7%94%B5%E5%BD%B1%E7%A5%A8.png?fname=%E7%94%B5%E5%BD%B1%E7%A5%A8.png' },
-    { keywords: ['湿巾'], groupName: '湿巾', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/4e2588feb7d22abfea3882800e426d5f0aaa97edac84b6ba338288e9f00bd08d/%E6%B9%BF%E5%B7%BE.png?fname=%E6%B9%BF%E5%B7%BE.png' },
+    { keywords: ['湿巾'], groupName: '湿巾', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/4e2588feb7d22abfea3882800e426d5f0aaa97edac84b6ba338   288e9f00bd08d/%E6%B9%BF%E5%B7%BE.png?fname=%E6%B9%BF%E5%B7%BE.png' },
     { keywords: ['湿厕纸'], groupName: '湿厕纸', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/1646f86408b3919bef97fedc3ab6c259100d5aa6e1aae4030626887f6a8807d0/%E6%B9%BF%E5%8E%95%E7%BA%B8.png?fname=%E6%B9%BF%E5%8E%95%E7%BA%B8.png' },
     { keywords: ['擦镜', '镜片清洁', '镜头清洁', '蔡司'], groupName: '擦镜纸', avatarUrl: 'https://gzc-download.weiyun.com/ftn_handler/4709c3b207e3fb4cb30a36705192a35c9f3311ad6821dda750c179a6a761985d/%E6%93%A6%E9%95%9C%E7%BA%B8.png?fname=%E6%93%A6%E9%95%9C%E7%BA%B8.png' },
     { keywords: ['雪糕', '冰淇淋'], groupName: '冰淇淋', avatarUrl: 'https://s41.ax1x.com/2026/06/24/pmtSrb6.png' },
