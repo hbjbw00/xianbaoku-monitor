@@ -131,10 +131,10 @@ const groupRules = [
     { keywords: ['上海'], groupName: '上海', avatarUrl: 'https://y.zdmimg.com/202105/29/60b1dd48962802524.jpg' },
     { keywords: ['掌上'], groupName: '掌上生活', avatarUrl: 'https://qny.smzdm.com/202301/12/63bfb4b12225e9628.jpg' },
     { keywords: ['碰一'], groupName: '碰一碰', avatarUrl: 'https://a.zdmimg.com/202512/04/69310192e994f3544.png_a640.jpg' },
-    { keywords: ['bug'], groupName: 'BUG价' },
-    { keywords: ['必中'], groupName: '必中' },
-    { keywords: ['开通'], groupName: '开通' },
-    { keywords: ['年卡'], groupName: '年卡' },
+    { keywords: ['bug'], groupName: 'BUG价', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUPsI.png' },
+    { keywords: ['必中'], groupName: '必中', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUPsI.png' },
+    { keywords: ['开通'], groupName: '开通', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUCQA.png' },
+    { keywords: ['年卡'], groupName: '年卡', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUpzd.png' },
     { keywords: ['面包', '肉松小贝', '馍片', '沙琪玛', '趣多多', '威化饼'], groupName: '零食', avatarUrl: 'https://y.zdmimg.com/202512/04/6931a759da03e4811.png' },
     { keywords: ['电影'], groupName: '电影票', avatarUrl: 'https://a.zdmimg.com/202512/25/694ce2d788ab41401.jpg_a200.jpg' },
     { keywords: ['湿巾'], groupName: '湿巾', avatarUrl: 'https://y.zdmimg.com/202601/23/6973622ebec4a1665.jpg' },
@@ -155,7 +155,7 @@ const groupRules = [
     { keywords: ['鸡蛋灌饼'], groupName: '鸡蛋灌饼', avatarUrl: 'https://qny.smzdm.com/202412/03/674e9c838599d9794.jpg' },
     { keywords: ['皇家小虎'], groupName: '皇家小虎', avatarUrl: 'https://a.zdmimg.com/202507/04/6867e6d61b5b17654.jpg_a320.jpg' },
     { keywords: ['番茄酱', '番茄沙司'], groupName: '番茄酱', avatarUrl: 'https://y.zdmimg.com/202108/25/6125d81287c582190.jpg' },
-    { keywords: ['查漏补缺'], groupName: '查漏补缺' },
+    { keywords: ['查漏补缺'], groupName: '查漏补缺', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUiLt.png' },
     { keywords: ['税'], groupName: '退税', avatarUrl: 'https://a.zdmimg.com/202603/01/69a430f61a1d89085.jpg_a640.jpg' }
 ];
 
