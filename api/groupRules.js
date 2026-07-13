@@ -29,6 +29,7 @@ const groupRules = [
     { keywords: ['移动'], groupName: '移动', avatarUrl: 'https://y.zdmimg.com/201601/07/35bac23b.png' },
     { keywords: ['联通'], groupName: '联通', avatarUrl: 'https://y.zdmimg.com/202103/08/6045cd73a28ba4921.jpg' },
     { keywords: ['话费'], groupName: '话费', avatarUrl: 'https://qna.smzdm.com/202204/10/6252d6c1c7cd58835.jpg_a640.jpg' },
+    { keywords: ['水费', '电费', '燃气费','水电燃','缴费','国网'], groupName: '生活缴费', avatarUrl: 'https://a.zdmimg.com/202509/26/68d652546ecb78287.jpg_a640.jpg' },
     
     // ========== 视频/娱乐类 ==========
     { keywords: ['云包场'], groupName: '云包场', avatarUrl: 'https://qna.smzdm.com/202412/09/6756e17f83b34677.jpg_a640.jpg' },
