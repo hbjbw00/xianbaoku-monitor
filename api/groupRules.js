@@ -136,7 +136,7 @@ const groupRules = [
     { keywords: ['掌上'], groupName: '掌上生活', avatarUrl: 'https://qny.smzdm.com/202301/12/63bfb4b12225e9628.jpg' },
     { keywords: ['碰一'], groupName: '碰一碰', avatarUrl: 'https://a.zdmimg.com/202512/04/69310192e994f3544.png_a640.jpg' },
     { keywords: ['bug'], groupName: 'BUG价', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUPsI.png' },
-    { keywords: ['必中'], groupName: '必中', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUPsI.png' },
+    { keywords: ['必中'], groupName: '必中', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUkeP.png' },
     { keywords: ['WPS'], groupName: 'WPS会员', avatarUrl: 'https://a.zdmimg.com/202606/26/6a3de638bcdca1053.jpg_e1080.jpg' },
     { keywords: ['开通'], groupName: '开通', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUCQA.png' },
     { keywords: ['年卡'], groupName: '年卡', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUpzd.png' },
