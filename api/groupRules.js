@@ -10,6 +10,7 @@ const groupRules = [
     { keywords: ['回力'], groupName: '回力', avatarUrl: 'https://y.zdmimg.com/202111/12/618ddc32a62d3856.jpg' },
     { keywords: ['鞋'], groupName: '鞋', avatarUrl: 'https://a.zdmimg.com/202607/12/6a539634e8eef7464.jpg_a640.jpg' },
     { keywords: ['吉列', '水次元'], groupName: '手动剃须刀', avatarUrl: 'https://y.zdmimg.com/202507/16/6876d0c1fc58d1611.jpg_d320.jpg' },
+    { keywords: ['短裤', '五分裤'], groupName: '短裤', avatarUrl: 'https://y.zdmimg.com/202401/02/6593d000cfcf34733.jpg_d320.jpg' },
     
     // ========== 银行/金融类 ==========
     { keywords: ['平安', '好车主'], groupName: '平安', avatarUrl: 'https://qny.smzdm.com/201712/19/5a38dae5447e65207.jpg' },
