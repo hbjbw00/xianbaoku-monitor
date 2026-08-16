@@ -122,6 +122,7 @@ const groupRules = [
     // ========== 美妆个护 ==========
     { keywords: ['Whoo', '后拱辰'], groupName: '后拱辰', avatarUrl: 'https://y.zdmimg.com/202512/02/692e0cb3031981979.png' },
     { keywords: ['优时颜'], groupName: '优时颜', avatarUrl: 'https://y.zdmimg.com/202601/02/695782566b0f47656.jpg' },
+    { keywords: ['诗裴丝'], groupName: '诗裴丝', avatarUrl: 'https://qny.smzdm.com/202110/26/6177b0cf5d1fb6364.png' },
     { keywords: ['舒莱'], groupName: '舒莱', avatarUrl: 'https://qny.smzdm.com/202411/25/67441a06bc9962526.jpg' },
     { keywords: ['博乐纯','清朗一日'], groupName: '博士伦', avatarUrl: 'https://y.zdmimg.com/202512/14/693e7d30b190e5615.jpg' },
     { keywords: ['欧舒适'], groupName: '强生', avatarUrl: 'https://y.zdmimg.com/202102/05/601cd2e0176a31186.jpg' },
