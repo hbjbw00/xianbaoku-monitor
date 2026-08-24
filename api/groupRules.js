@@ -7,6 +7,7 @@
 
 const groupRules = [
     // ========== 运动品牌 ==========
+    { keywords: ['酷安'], groupName: '酷安', avatarUrl: 'https://avatarimg.smzdm.com/default/4468863798/67fe86cc549d25274-middle.jpg' },
     { keywords: ['回力'], groupName: '回力', avatarUrl: 'https://y.zdmimg.com/202111/12/618ddc32a62d3856.jpg' },
     { keywords: ['鞋'], groupName: '鞋', avatarUrl: 'https://a.zdmimg.com/202607/12/6a539634e8eef7464.jpg_a640.jpg' },
     { keywords: ['吉列', '水次元'], groupName: '手动剃须刀', avatarUrl: 'https://y.zdmimg.com/202507/16/6876d0c1fc58d1611.jpg_d320.jpg' },
