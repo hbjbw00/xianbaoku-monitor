@@ -129,6 +129,7 @@ const groupRules = [
     { keywords: ['博乐纯','清朗一日'], groupName: '博士伦', avatarUrl: 'https://y.zdmimg.com/202512/14/693e7d30b190e5615.jpg' },
     { keywords: ['欧舒适'], groupName: '强生', avatarUrl: 'https://y.zdmimg.com/202102/05/601cd2e0176a31186.jpg' },
     { keywords: ['清氧清','欧柯视'], groupName: '库博光学', avatarUrl: 'https://y.zdmimg.com/201605/09/57300b6839dad1293.png' },
+    { keywords: ['日抛'], groupName: '隐形眼镜', avatarUrl: 'https://a.zdmimg.com/202607/25/6a6450b9ba7843488.jpg_a320.jpg' },
     { keywords: ['牙线'], groupName: '牙线', avatarUrl: 'https://y.zdmimg.com/202507/19/687b6869b898b8600.jpg' },
     { keywords: ['高露洁'], groupName: '高露洁', avatarUrl: 'https://y.zdmimg.com/202102/18/602e0497e295a7361.jpg' },
     { keywords: ['hfp'], groupName: 'HFP', avatarUrl: 'https://y.zdmimg.com/202504/18/680251c0b29df283.jpg' },
