@@ -89,7 +89,6 @@ const groupRules = [
     // ========== 王一博代言 ==========
     { keywords: ['王一博'], groupName: '王一博', avatarUrl: 'https://a.zdmimg.com/202606/26/6a3d5659b77bd3570.png_a320.jpg' },
     { keywords: ['安踏', 'ANTA'], groupName: '安踏', avatarUrl: 'https://y.zdmimg.com/202103/12/604b3930cea5b9676.jpg' },
-    { keywords: ['纯甄','轻酪乳'], groupName: '纯甄', avatarUrl: 'https://qny.smzdm.com/202302/14/63eaf922a28cb6501.jpg' },
     { keywords: ['勇闯天涯'], groupName: '勇闯天涯', avatarUrl: 'https://y.zdmimg.com/202510/29/6901e8ef7cba62304.png' },
     { keywords: ['黑狮'], groupName: '黑狮', avatarUrl: 'https://y.zdmimg.com/202510/30/69032b4605dcb8163.jpg' },
     { keywords: ['冰红茶'], groupName: '冰红茶', avatarUrl: 'https://y.zdmimg.com/202605/15/6a067e545d8472277.jpg' },
