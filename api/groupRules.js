@@ -79,6 +79,7 @@ const groupRules = [
     { keywords: ['盒马'], groupName: '盒马', avatarUrl: 'https://qny.smzdm.com/202411/21/673ed8b1f156b1641.jpg' },
     { keywords: ['好想来'], groupName: '好想来', avatarUrl: 'https://a.zdmimg.com/202406/25/667a8bad3016f987.png_a640.jpg' },
     { keywords: ['南星'], groupName: '南星面包', avatarUrl: 'https://y.zdmimg.com/202109/16/6142e8e7ab9f37111.jpg' },
+    { keywords: ['纯牛奶','纯奶'], groupName: '纯牛奶', avatarUrl: 'https://y.zdmimg.com/202511/30/692bcec1b945f5370.jpg_d320.jpg' },
     
     // ========== 数码/手机 ==========
     { keywords: ['小米', '红米', 'REDMI'], groupName: '小米', avatarUrl: 'https://qny.smzdm.com/202311/06/65485294d679b4046.jpg' },
