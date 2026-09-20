@@ -142,6 +142,7 @@ const groupRules = [
     { keywords: ['上海'], groupName: '上海', avatarUrl: 'https://y.zdmimg.com/202105/29/60b1dd48962802524.jpg' },
     { keywords: ['掌上'], groupName: '掌上生活', avatarUrl: 'https://qny.smzdm.com/202301/12/63bfb4b12225e9628.jpg' },
     { keywords: ['碰一'], groupName: '碰一碰', avatarUrl: 'https://a.zdmimg.com/202512/04/69310192e994f3544.png_a640.jpg' },
+    { keywords: ['摇一摇','摇优惠'], groupName: '摇优惠', avatarUrl: 'https://a.zdmimg.com/202607/21/6a5f15b730d3e6008.jpg_a320.jpg' },
     { keywords: ['bug'], groupName: 'BUG价', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUPsI.png' },
     { keywords: ['必中'], groupName: '必中', avatarUrl: 'https://s41.ax1x.com/2026/07/09/pmrUkeP.png' },
     { keywords: ['WPS'], groupName: 'WPS会员', avatarUrl: 'https://a.zdmimg.com/202606/26/6a3de638bcdca1053.jpg_e1080.jpg' },
