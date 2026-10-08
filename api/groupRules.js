@@ -121,6 +121,10 @@ const groupRules = [
     { keywords: ['FLYCO', '飞科'], groupName: '飞科', avatarUrl: 'https://qny.smzdm.com/202404/16/661e2d3795107562.jpg' },
     { keywords: ['漫步者'], groupName: '漫步者', avatarUrl: 'https://y.zdmimg.com/202103/12/604b17ccb6fff3424.jpg' },
     { keywords: ['SKG'], groupName: 'SKG', avatarUrl: 'https://y.zdmimg.com/202010/26/5f9649b58a5c35659.jpg' },
+    { keywords: ['云南白药'], groupName: '云南白药', avatarUrl: 'https://a.zdmimg.com/202607/18/6a5b27b9e42b88073.jpg_a320.jpg' },
+    { keywords: ['alo', '爱洛'], groupName: '爱洛', avatarUrl: 'https://a.zdmimg.com/202508/29/68b18544bddd12907.jpg_a320.jpg' },
+    { keywords: ['乐高'], groupName: '乐高', avatarUrl: 'https://y.zdmimg.com/201511/26/1ac79ebe.png' },
+    { keywords: ['以纯'], groupName: '以纯', avatarUrl: 'https://qny.smzdm.com/202207/22/62da4de17307c790.jpg' },
     
     // ========== 美妆个护 ==========
     { keywords: ['Whoo', '后拱辰'], groupName: '后拱辰', avatarUrl: 'https://y.zdmimg.com/202512/02/692e0cb3031981979.png' },
