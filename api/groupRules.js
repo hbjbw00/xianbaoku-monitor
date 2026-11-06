@@ -109,7 +109,6 @@ const groupRules = [
     { keywords: ['C咖'], groupName: 'C咖', avatarUrl: 'https://y.zdmimg.com/202106/09/60c02dd2d29292879.jpg' },
     { keywords: ['得宝', 'TEMPO'], groupName: '得宝', avatarUrl: 'https://y.zdmimg.com/202106/05/60bb0fd47d2786235.jpg' },
     { keywords: ['YAYA', '鸭鸭'], groupName: '鸭鸭', avatarUrl: 'https://y.zdmimg.com/202112/01/61a717ff71cf45815.jpg' },
-    { keywords: ['法丽兹'], groupName: '法丽兹', avatarUrl: 'https://y.zdmimg.com/202104/12/60740f462c2481547.jpg' },
     { keywords: ['EVISU'], groupName: 'EVISU', avatarUrl: 'https://y.zdmimg.com/202103/17/605192869eb734876.jpg' },
     { keywords: ['蕉内', 'BANANAIN'], groupName: '蕉内', avatarUrl: 'https://y.zdmimg.com/201707/20/59704fa2a527bwUbPN.png' },
     { keywords: ['海伦凯勒'], groupName: '海伦凯勒', avatarUrl: 'https://y.zdmimg.com/202103/16/6050669c40c639535.jpg' },
